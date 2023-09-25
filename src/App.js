@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import MovieDetails from "./pages/MovieDetails";
 import WatchList from "./pages/WatchList";
+import NotFound from "./pages/NotFound";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/watchlist" element={<WatchList />} />
                 <Route path="/movies/:id" element={<MovieDetails />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
