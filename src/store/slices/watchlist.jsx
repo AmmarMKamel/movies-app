@@ -13,3 +13,7 @@ const watchlist = createSlice({
         removeFromWatchlist: () => {},
     },
 });
+
+export const { addToWatchlist, removeFromWatchlist } = watchlist.actions;
+
+export default watchlist.reducer;
