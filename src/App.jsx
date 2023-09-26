@@ -5,9 +5,16 @@ import MovieDetails from "./pages/MovieDetails";
 import WatchList from "./pages/WatchList";
 import NotFound from "./pages/NotFound";
 
-import "./App.css";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+    const currentTheme = useSelector((state) => state.themeSlice.currentTheme);
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+    }, [currentTheme]);
+
     return (
         <Router>
             <Routes>
