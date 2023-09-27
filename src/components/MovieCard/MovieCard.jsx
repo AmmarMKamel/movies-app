@@ -14,6 +14,7 @@ export default function MovieCard() {
         maxWidth: 345,
         position: "relative",
         boxShadow: "none",
+        borderRadius: "10px",
         "@media (max-width:600px)": {
           width: "auto",
           margin: "0 auto",
@@ -26,14 +27,14 @@ export default function MovieCard() {
           top: "2%",
           right: "5%",
           backgroundColor: "#fff",
-          opacity: "0.7",
+          opacity: "0.5",
           ":hover": {
             backgroundColor: "#ddd",
             opacity: "1",
           },
         }}
       >
-        <MoreHorizIcon fontSize="small" />
+        <MoreHorizIcon sx={{ fontSize: 14 }} />
       </IconButton>
       <figure>
         <img

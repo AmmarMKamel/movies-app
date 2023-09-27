@@ -23,7 +23,6 @@ export default function Pagination({ pageCount, onPageChange }) {
       nextClassName={"next"}
       previousLinkClassName={"previous-link"}
       nextLinkClassName={"next-link"}
-      style={{ marginBottom: "10px" }}
     />
   );
 }

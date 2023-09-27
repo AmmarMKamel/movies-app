@@ -17,11 +17,13 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
 .active .page-link {
     background-color: var(--primary-color);
+    color: white;
 }
 
 .previous,
@@ -37,12 +39,13 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: var(--bg-color);
 }
 
 .previous-link:hover,
 .next-link:hover {
     background-color: var(--primary-color);
+    color: white;
 }
 
 .break-me:hover {
