@@ -15,6 +15,7 @@ export default function MovieCard() {
         position: "relative",
         boxShadow: "none",
         borderRadius: "10px",
+        backgroundColor: "var(--bg-color)",
         "@media (max-width:600px)": {
           width: "auto",
           margin: "0 auto",
@@ -48,13 +49,14 @@ export default function MovieCard() {
           gutterBottom
           variant="h6"
           component="h6"
+          color= "var(--text-color)"
           sx={{ fontSize: "0.874rem", fontWeight: "bold", mt: 2 }}
         >
           La Science des rêves
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
+          color= "var(--text-color)"
           sx={{
             display: "flex",
             justifyContent: "space-between",

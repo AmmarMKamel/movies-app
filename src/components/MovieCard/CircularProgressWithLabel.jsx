@@ -9,7 +9,7 @@ export default function CircularProgressWithLabel(props) {
       sx={{
         position: "absolute",
         display: "inline-flex",
-        backgroundColor: "#081c22",
+        backgroundColor: "var(--secondary-color)",
         borderRadius: "50%",
         padding: "2px",
         top: "-20px",
@@ -18,13 +18,13 @@ export default function CircularProgressWithLabel(props) {
       <CircularProgress
         variant="determinate"
         value={100}
-        sx={{ color: "#21cf79", opacity: 0.3 }}
+        sx={{ color: "var(--low-rating)", opacity: 0.3 }}
       />{" "}
       {/* background progress bar */}
       <CircularProgress
         variant="determinate"
         {...props}
-        sx={{ color: "#21cf79", position: "absolute" }}
+        sx={{ color: "var(--low-rating)", position: "absolute" }}
       />{" "}
       {/* actual progress bar */}
       <Box
@@ -42,7 +42,7 @@ export default function CircularProgressWithLabel(props) {
         <Typography
           variant="caption"
           component="div"
-          sx={{ color: "white", fontWeight: "700" }}
+          sx={{ color: "var(--bg-color)", fontWeight: "700" }}
         >
           {`${Math.round(props.value)}`}
           <sup>%</sup>
