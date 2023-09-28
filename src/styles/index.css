@@ -1,3 +1,4 @@
+
 :root {
     --high-rating: #21cf79;
     --med-rating: #d2d531;
@@ -7,14 +8,18 @@
 [data-theme="light"] {
     --primary-color: #da0037;
     --secondary-color: #171717;
+    --header-text-color: #fffbfb;
     --text-color: #444444;
+    --search-bg-color: #afafaf44;
     --bg-color: #fafafa;
 }
 
 [data-theme="dark"] {
     --primary-color: #da0037;
     --secondary-color: #ffff;
+    --header-text-color: #fffbfb;
     --text-color: #fffbfb;
+    --search-bg-color: #afafaf;
     --bg-color: #171717;
 }
 

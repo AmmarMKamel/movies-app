@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 import { fetchMovies } from "../api/services/moviesService";
@@ -54,4 +55,5 @@ export default function Home() {
             />
         </Container>
     );
+
 }
