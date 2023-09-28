@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { fetchMovies } from "../api/services/moviesService";
 
+import SearchWidget from '../components/Search/SearchWidget'
 import MovieCard from "../components/MovieCard/MovieCard";
 import Pagination from "../components/Pagination/Pagination";
 
@@ -30,6 +31,7 @@ export default function Home() {
 
     return (
         <Container fluid="true">
+            <SearchWidget/>
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Popular Movies
             </Typography>

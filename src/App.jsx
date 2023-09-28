@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header/Header'
 import Home from "./pages/Home";
-import Search from "./pages/Search";
+import SearchResult from "./pages/SearchResult";
 import MovieDetails from "./pages/MovieDetails";
 import WatchList from "./pages/WatchList";
 import NotFound from "./pages/NotFound";
@@ -17,9 +18,10 @@ const App = () => {
 
     return (
         <Router>
+            <Header/>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/search" element={<Search />} />
+                <Route path="/search" element={<SearchResult />} />
                 <Route path="/watchlist" element={<WatchList />} />
                 <Route path="/movies/:id" element={<MovieDetails />} />
                 <Route path="*" element={<NotFound />} />
