@@ -1,9 +1,7 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from "./pages/Home";
-import Search from "./pages/Search";
-import MovieDetails from "./pages/MovieDetails";
-import WatchList from "./pages/WatchList";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter } from 'react-router-dom';
+
+import Header from "./components/Header/Header";
+import Router from './Routes';
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -16,15 +14,10 @@ const App = () => {
     }, [currentTheme]);
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/watchlist" element={<WatchList />} />
-                <Route path="/movies/:id" element={<MovieDetails />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </Router>
+        <BrowserRouter>
+            <Header />
+            <Router />
+        </BrowserRouter>
     );
 }
 
