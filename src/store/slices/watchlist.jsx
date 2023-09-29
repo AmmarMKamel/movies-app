@@ -25,3 +25,9 @@ const watchlistSlice = createSlice({
     },
   },
 });
+
+// Export actions from the slice
+export const watchlistActions = watchlistSlice.actions;
+
+// Export the reducer as the default export
+export default watchlistSlice.reducer;

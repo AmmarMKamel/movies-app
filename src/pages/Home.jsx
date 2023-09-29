@@ -26,6 +26,7 @@ export default function Home() {
             })
             .catch((err) => console.log(err));
     }, [currentPage]);
+    
 
     return (
         <Container fluid="true">
