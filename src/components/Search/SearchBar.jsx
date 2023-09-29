@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const SearchBar = ({ hasBorders }) => {
+  const navigate = useNavigate();
+
   const handleSearch = () => {
     // Handle search button click
+    navigate('/SearchResult')
   };
 
   return (

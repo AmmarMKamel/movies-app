@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-import Grid from "@mui/material/Grid";
+import error404Img from '../../assets/error_404.png'
+
+import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import noFavImg from '../../assets/noFavorite.png'
-
-export default function EmptyWatchList() {
+export default function Error404() {
     const navigate = useNavigate();
 
     return (
@@ -26,8 +26,8 @@ export default function EmptyWatchList() {
         >
             <img
 
-                style={{ width: "60%" }}
-                src={noFavImg}
+                style={{ width: "40%", marginBottom: '10px' }}
+                src={error404Img}
                 loading="lazy"
             />
 
@@ -35,13 +35,13 @@ export default function EmptyWatchList() {
                 variant="h4"
                 color="var(--secondary-color)"
             >
-                No Movies in watch list
+                The page you are looking for is not avaible!
             </Typography>
 
             <Typography
                 color="var(--text-color)"
             >
-                Add the movies you are intersted in to appear here
+                Looks like you're lost , let's go back Home
             </Typography>
 
             <Button
