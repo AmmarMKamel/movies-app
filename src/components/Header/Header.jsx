@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentLang } from "../../store/slices/language";
 import { useNavigate } from "react-router-dom";
+import { setCurrentLang } from "../../store/slices/language";
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,7 +17,6 @@ import InputBase from "@mui/material/InputBase";
 
 const Header = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSlice.currentLang);
   const availableLanguages = useSelector(
@@ -26,11 +25,16 @@ const Header = () => {
 
   const handleLanguageChange = (event) => {
     dispatch(setCurrentLang(event.target.value));
+    window.location.reload();
   };
 
   const handleWatchlistClick = (event) => {
     navigate('/watchlist')
   };
+
+  const handleLogoClick = () => {
+    navigate('/');
+  }
 
   return (
     <AppBar
@@ -40,11 +44,11 @@ const Header = () => {
       <Toolbar>
         <Button
           edge="start"
+          onClick={handleLogoClick}
           sx={{
             color: "var(--header-text-color)",
             fontSize: "1.2rem",
           }}
-          onClick={()=>{navigate('/')}}
         >
           Watch X
         </Button>

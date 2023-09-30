@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from "react";
 
 import { fetchMovies } from "../api/services/moviesService";
 
-import SearchWidget from "../components/Search/SearchWidget";
+import SearchWidget from '../components/Search/SearchWidget'
 import MovieCard from "../components/MovieCard/MovieCard";
 import Pagination from "../components/Pagination/Pagination";
 
@@ -31,33 +32,32 @@ export default function Home() {
 
 
     return (
-        <>
-        <SearchWidget />
-            <Container fluid="true">
-                <Typography variant="h4" sx={{ mb: 3 }}>
-                    Popular Movies
-                </Typography>
-                {/*<h1 >Popular Movies</h1>*/}
-                <Grid container spacing={2}>
-                    {movies &&
-                        movies.map((movie) => (
-                            <Grid
-                                item="true"
-                                xs={12}
-                                sm={6}
-                                md={4}
-                                lg={2}
-                                key={movie.id}
-                            >
-                                <MovieCard movie={movie} />
-                            </Grid>
-                        ))}
-                </Grid>
-                <Pagination
-                    pageCount={totalPages}
-                    onPageChange={handlePageChange}
-                />
-            </Container>
-        </>
+        <Container fluid="true">
+            <SearchWidget/>
+            <Typography variant="h4" sx={{ mb: 3 }}>
+                Popular Movies
+            </Typography>
+            {/*<h1 >Popular Movies</h1>*/}
+            <Grid container spacing={2}>
+                {movies &&
+                    movies.map((movie) => (
+                        <Grid
+                            item="true"
+                            xs={12}
+                            sm={6}
+                            md={4}
+                            lg={2}
+                            key={movie.id}
+                        >
+                            <MovieCard movie={movie} />
+                        </Grid>
+                    ))}
+            </Grid>
+            <Pagination
+                pageCount={totalPages}
+                onPageChange={handlePageChange}
+            />
+        </Container>
     );
+
 }

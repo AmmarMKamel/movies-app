@@ -1,30 +1,37 @@
-import { useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const SearchBar = ({ hasBorders }) => {
+const SearchBar = ({ searchPage }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // Handle search button click
-    navigate('/SearchResult')
+    if(!searchPage && searchTerm.length !== 0)
+      navigate('/search', { state: { query: searchTerm } });
+
   };
 
+  useEffect(() =>{
+
+  }, [searchTerm])
+
   return (
-    <div>
+    <div className="search-bar">
       <TextField
         variant="outlined"
         placeholder="Search and explore..."
-
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         sx={{
           marginBottom: "1rem",
           marginRight: "1rem",
-          width: "88%",
+          width: '85%',
           backgroundColor: "white",
           borderRadius: "8px",
           "& fieldset": {
-            border: hasBorders ? "1px solid #12121244" : "none",
+            border: searchPage ? "1px solid #12121244" : "none",
             borderRadius: "10px",
           },
           "& input": { padding: "12px 16px" },

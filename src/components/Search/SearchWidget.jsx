@@ -8,9 +8,8 @@ const SearchWidget = () => {
   return (
     <Container
     disableGutters
-    maxWidth="xlg"
       sx={{
-        width: '95%',
+        width: '100%',
         backgroundColor: 'var(--search-bg-color)',
         padding: '30px 50px',
         marginTop: '25px',

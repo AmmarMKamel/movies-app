@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import store from '../../store/store';
 // Load API token from environment variables [CURRENTLY NOT USED]
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -30,6 +30,9 @@ const apiInstance = axios.create({
 // Set up request interceptors to attach headers to every request
 apiInstance.interceptors.request.use(
   (config) => {
+    const state = store.getState();
+    const language = state.languageSlice.currentLang.toLowerCase();
+
     // Specify the accepted headers type
     config.headers.accept = 'application/json'
 
@@ -39,7 +42,6 @@ apiInstance.interceptors.request.use(
     }
 
     // Attach the language parameter to every request
-    const language =  'en' // getLanguage();
     config.params = {
       ...config.params,
       language,
