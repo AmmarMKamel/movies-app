@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchMovies } from "../api/services/moviesService";
 
 import MoviesContainer from "../components/MoviesContainer/MoviesContainer";
+import SearchWidget from '../components/Search/SearchWidget'
 
 export default function Home() {
 
@@ -26,12 +27,15 @@ export default function Home() {
 
 
     return (
+        <>
+        <SearchWidget/>
         <MoviesContainer
             heading="Popular Movies"
             content={movies}
             totalPages={totalPages}
             handlePageChange={handlePageChange}
         />
+        </>
     );
 
 }
