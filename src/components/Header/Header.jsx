@@ -29,7 +29,7 @@ const Header = () => {
   };
 
   const handleWatchlistClick = (event) => {
-    // Navigate to watch list
+    navigate('/watchlist')
   };
 
   const handleLogoClick = () => {

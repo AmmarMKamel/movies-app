@@ -9,7 +9,7 @@ const SearchBar = ({ searchPage }) => {
 
   const handleSearch = () => {
     if(!searchPage && searchTerm.length !== 0)
-      navigate('/search', { state: { query: searchTerm } });
+      navigate('/SearchResult', { state: { query: searchTerm } });
 
   };
 
