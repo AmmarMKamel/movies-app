@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../api/services/imageServices";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,6 +10,12 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 
 export default function MovieCard(props) {
+    const navigate = useNavigate();
+
+    const handleMovieDetails = (movieId) => {
+        navigate(`/movies/${movieId}`);
+    };
+
     return (
         <Card
             sx={{
@@ -35,6 +42,7 @@ export default function MovieCard(props) {
                         opacity: "1",
                     },
                 }}
+                onClick={() => handleMovieDetails(props.movie.id)}
             >
                 <MoreHorizIcon sx={{ fontSize: 14 }} />
             </IconButton>
