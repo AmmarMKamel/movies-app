@@ -4,10 +4,10 @@ import { getImageUrl } from "../../api/services/imageServices";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
+
+import "./../../styles/MovieCard.css";
 
 export default function MovieCard(props) {
     const navigate = useNavigate();
@@ -30,7 +30,10 @@ export default function MovieCard(props) {
                 },
             }}
         >
-            <figure>
+            <figure
+                className="figure-hover"
+                onClick={() => handleMovieDetails(props.movie.id)}
+            >
                 <img
                     src={getImageUrl(props.movie.poster_path)}
                     style={{ width: "100%", borderRadius: "10px" }}
