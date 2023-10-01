@@ -10,71 +10,82 @@ import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import "./../../styles/MovieCard.css";
 
 export default function MovieCard(props) {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const handleMovieDetails = (movieId) => {
-        navigate(`/movies/${movieId}`);
-    };
+	const handleMovieDetails = (movieId) => {
+		navigate(`/movies/${movieId}`);
+	};
 
-    return (
-        <Card
-            sx={{
-                maxWidth: 345,
-                position: "relative",
-                boxShadow: "none",
-                borderRadius: "10px",
-                backgroundColor: "var(--bg-color)",
-                "@media (max-width:600px)": {
-                    width: "auto",
-                    margin: "0 auto",
-                },
-            }}
-        >
-            <figure
-                className="figure-hover"
-                onClick={() => handleMovieDetails(props.movie.id)}
-            >
-                <img
-                    src={getImageUrl(props.movie.poster_path)}
-                    style={{ width: "100%", borderRadius: "10px" }}
-                    alt={props.movie.title}
-                />
-            </figure>
-            <CardContent sx={{ position: "relative" }}>
-                <CircularProgressWithLabel
-                    value={props.movie.vote_average * 10}
-                />
-                <Typography
-                    gutterBottom
-                    variant="h6"
-                    component="h6"
-                    color="var(--text-color)"
-                    sx={{ fontSize: "0.874rem", fontWeight: "bold", mt: 2 }}
-                >
-                    {props.movie.original_title}
-                </Typography>
-                <Typography
-                    variant="body2"
-                    color="var(--text-color)"
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}
-                >
-                    {new Date(props.movie.release_date).toLocaleDateString(
-                        "en-US",
-                        {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                        }
-                    )}
-                    <FavoriteBorderOutlinedIcon
-                        sx={{ color: "var(--primary-color)" }}
-                    />
-                </Typography>
-            </CardContent>
-        </Card>
-    );
+	return (
+		<Card
+			sx={{
+				maxWidth: 345,
+				position: "relative",
+				boxShadow: "none",
+				borderRadius: "10px",
+				backgroundColor: "var(--bg-color)",
+				"@media (max-width:600px)": {
+					width: "auto",
+					margin: "0 auto",
+				},
+			}}
+		>
+			<figure
+				className="figure-hover"
+				onClick={() => handleMovieDetails(props.movie.id)}
+			>
+				{props.movie.poster_path ? (
+					<img
+						src={getImageUrl(props.movie.poster_path)}
+						style={{ width: "100%", borderRadius: "10px" }}
+						alt={props.movie.title}
+					/>
+				) : (
+					<img
+						src="https://placehold.co/800x1200"
+						style={{
+							width: "100%",
+							borderRadius: "10px",
+						}}
+						alt={props.movie.title}
+					/>
+				)}
+			</figure>
+			<CardContent sx={{ position: "relative" }}>
+				<CircularProgressWithLabel
+					value={props.movie.vote_average * 10}
+				/>
+				<Typography
+					gutterBottom
+					variant="h6"
+					component="h6"
+					color="var(--text-color)"
+					sx={{ fontSize: "0.874rem", fontWeight: "bold", mt: 2 }}
+				>
+					{props.movie.original_title}
+				</Typography>
+				<Typography
+					variant="body2"
+					color="var(--text-color)"
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+					}}
+				>
+					{new Date(props.movie.release_date).toLocaleDateString(
+						"en-US",
+						{
+							month: "short",
+							day: "numeric",
+							year: "numeric",
+						}
+					)}
+					<FavoriteBorderOutlinedIcon
+						sx={{ color: "var(--primary-color)" }}
+					/>
+				</Typography>
+			</CardContent>
+		</Card>
+	);
 }
