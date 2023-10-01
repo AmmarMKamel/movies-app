@@ -97,7 +97,10 @@ export default function MovieDetails() {
                                 <Rating
                                     value={movie.vote_average / 2}
                                     precision={0.5}
-                                    sx={{ mb: 4 }}
+                                    sx={{
+                                        mb: 4,
+                                        color: "var(--primary-color)",
+                                    }}
                                     readOnly
                                 />
                             )}
