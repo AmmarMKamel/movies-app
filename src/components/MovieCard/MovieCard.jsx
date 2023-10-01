@@ -1,14 +1,21 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../api/services/imageServices";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 
+import "./../../styles/MovieCard.css";
+
 export default function MovieCard(props) {
+    const navigate = useNavigate();
+
+    const handleMovieDetails = (movieId) => {
+        navigate(`/movies/${movieId}`);
+    };
+
     return (
         <Card
             sx={{
@@ -23,22 +30,10 @@ export default function MovieCard(props) {
                 },
             }}
         >
-            <IconButton
-                sx={{
-                    position: "absolute",
-                    top: "2%",
-                    right: "5%",
-                    backgroundColor: "#fff",
-                    opacity: "0.5",
-                    ":hover": {
-                        backgroundColor: "#ddd",
-                        opacity: "1",
-                    },
-                }}
+            <figure
+                className="figure-hover"
+                onClick={() => handleMovieDetails(props.movie.id)}
             >
-                <MoreHorizIcon sx={{ fontSize: 14 }} />
-            </IconButton>
-            <figure>
                 <img
                     src={getImageUrl(props.movie.poster_path)}
                     style={{ width: "100%", borderRadius: "10px" }}
