@@ -30,22 +30,6 @@ export default function MovieCard(props) {
                 },
             }}
         >
-            <IconButton
-                sx={{
-                    position: "absolute",
-                    top: "2%",
-                    right: "5%",
-                    backgroundColor: "#fff",
-                    opacity: "0.5",
-                    ":hover": {
-                        backgroundColor: "#ddd",
-                        opacity: "1",
-                    },
-                }}
-                onClick={() => handleMovieDetails(props.movie.id)}
-            >
-                <MoreHorizIcon sx={{ fontSize: 14 }} />
-            </IconButton>
             <figure>
                 <img
                     src={getImageUrl(props.movie.poster_path)}
