@@ -8,6 +8,8 @@ import {
 import { getImageUrl } from "../api/services/imageServices";
 
 import MovieCard from "../components/MovieCard/MovieCard";
+import { useSelector } from "react-redux";
+import { useTheme } from "@mui/material/styles";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -22,6 +24,7 @@ import Box from "@mui/material/Box";
 import "./../styles/MovieDetails.css";
 
 export default function MovieDetails() {
+	const theme = useTheme();
 	const [loading, setLoading] = useState(true);
 	const [movie, setMovie] = useState({});
 	const [recommendedMovies, setRecommendedMovies] = useState([]);
@@ -48,7 +51,13 @@ export default function MovieDetails() {
 	return (
 		<>
 			{loading ? (
-				<Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						mt: 10,
+					}}
+				>
 					<CircularProgress size={100} />
 				</Box>
 			) : (
@@ -86,6 +95,7 @@ export default function MovieDetails() {
 								style={{
 									display: "flex",
 									justifyContent: "space-between",
+									alignItems: "center",
 								}}
 							>
 								<div>
@@ -128,7 +138,12 @@ export default function MovieDetails() {
 							)}
 
 							{movie.overview && (
-								<p style={{ marginBottom: "30px" }}>
+								<p
+									style={{
+										marginBottom: "30px",
+										color: theme.palette.text.primary,
+									}}
+								>
 									{movie.overview}
 								</p>
 							)}
@@ -136,15 +151,33 @@ export default function MovieDetails() {
 							<ul className="genre-list">
 								{movie.genres &&
 									movie.genres.map((genre) => (
-										<li key={genre.id} className="genre">
+										<li
+											key={genre.id}
+											className="genre"
+											style={{
+												color: theme.palette.text
+													.primary,
+											}}
+										>
 											{genre.name}
 										</li>
 									))}
 							</ul>
 							<div style={{ marginBottom: "20px" }}>
 								{movie.runtime !== 0 && (
-									<span style={{ marginRight: "50px" }}>
-										<strong style={{ marginRight: "15px" }}>
+									<span
+										style={{
+											marginRight: "50px",
+											color: theme.palette.text.primary,
+										}}
+									>
+										<strong
+											style={{
+												marginRight: "15px",
+												color: theme.palette.text
+													.primary,
+											}}
+										>
 											Duration:
 										</strong>{" "}
 										{movie.runtime} Min.
@@ -154,13 +187,23 @@ export default function MovieDetails() {
 									movie.spoken_languages.length !== 0 && (
 										<span>
 											<strong
-												style={{ marginRight: "15px" }}
+												style={{
+													marginRight: "15px",
+													color: theme.palette.text
+														.primary,
+												}}
 											>
 												Languages:
 											</strong>{" "}
 											{movie.spoken_languages.map(
 												(language, idx) => (
-													<span key={idx}>
+													<span
+														key={idx}
+														style={{
+															color: theme.palette
+																.text.primary,
+														}}
+													>
 														{language.english_name}{" "}
 													</span>
 												)
@@ -177,7 +220,12 @@ export default function MovieDetails() {
 											movie.production_companies[0]
 												.logo_path
 										)}
-										style={{ width: "10%" }}
+										style={{
+											width: "10%",
+											backgroundColor:
+												theme.palette.background
+													.staticLight,
+										}}
 										alt={movie.original_title}
 									/>
 								) : (
@@ -195,15 +243,17 @@ export default function MovieDetails() {
 								<Button
 									endIcon={<LinkIcon />}
 									style={{
-										border: "1px solid var(--primary-color)",
+										border: `1px solid ${theme.palette.primary.main}`,
 										borderRadius: "25px",
-										color: "var(--text-color)",
+										color: theme.palette.text.primary,
 										padding: "8px 25px",
 									}}
 								>
 									<a
 										href={movie.homepage}
-										style={{ color: "var(--text-color)" }}
+										style={{
+											color: theme.palette.text.primary,
+										}}
 									>
 										Website
 									</a>
@@ -217,7 +267,7 @@ export default function MovieDetails() {
 							component="h3"
 							sx={{
 								fontWeight: "bold",
-								color: "var(--text-color)",
+								color: theme.palette.text.primary,
 								mb: 5,
 							}}
 						>

@@ -1,6 +1,9 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { getImageUrl } from "../../api/services/imageServices";
+import { useTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -10,6 +13,8 @@ import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import "./../../styles/MovieCard.css";
 
 export default function MovieCard(props) {
+	const language = useSelector((state) => state.languageSlice.currentLang);
+	const theme = useTheme();
 	const navigate = useNavigate();
 
 	const handleMovieDetails = (movieId) => {
@@ -22,7 +27,8 @@ export default function MovieCard(props) {
 				maxWidth: 345,
 				position: "relative",
 				boxShadow: "none",
-				backgroundColor: "var(--bg-color)",
+				borderRadius: "10px",
+				backgroundColor: theme.palette.background.default,
 				"@media (max-width:600px)": {
 					width: "auto",
 					margin: "0 auto",
@@ -64,8 +70,8 @@ export default function MovieCard(props) {
 					gutterBottom
 					variant="h6"
 					component="h6"
-					color="var(--text-color)"
 					sx={{
+						color: theme.palette.text.primary,
 						fontSize: "0.874rem",
 						fontWeight: "bold",
 						mt: 2,

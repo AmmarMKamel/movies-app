@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTheme } from "@mui/material/styles";
 
 import { Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -12,32 +13,33 @@ import SearchBar from "../components/Search/SearchBar";
 import { fetchMovieDetailsByName } from "../api/services/searchService";
 
 const SearchResult = () => {
+	const theme = useTheme();
 	const location = useLocation();
-	const searchString = location.state?.query;
+	const [searchString, setSearchString] = useState(location.state?.query);
 	const [moviesList, setmoviesList] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1000);
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
+	const fetchData = (currentSearchString, currentPage = 1) => {
+		setSearchString(currentSearchString ?? "");
 		setLoading(true);
-		fetchMovieDetailsByName(searchString).then((data) => {
-			setmoviesList(data.results);
-			setTotalPages(data.total_pages);
-			setLoading(false);
-		});
-	}, []);
-
-	useEffect(() => {
-		setLoading(true);
-		fetchMovieDetailsByName(searchString, currentPage)
+		fetchMovieDetailsByName(currentSearchString, currentPage)
 			.then((data) => {
 				setmoviesList(data.results);
 				setTotalPages(data.total_pages);
 				setLoading(false);
 			})
 			.catch((err) => console.log(err));
-	}, [searchString, currentPage]);
+	};
+
+	useEffect(() => {
+		fetchData(searchString);
+	}, []);
+
+	useEffect(() => {
+		fetchData(searchString, currentPage);
+	}, [currentPage]);
 
 	const handlePageChange = (selectedPage) => {
 		setCurrentPage(selectedPage + 1);
@@ -45,8 +47,15 @@ const SearchResult = () => {
 
 	return (
 		<Container fluid="true" sx={{ py: 5 }}>
-			<SearchBar hasBorders={true} />
-			<Typography variant="body1" gutterBottom>
+			<SearchBar searchPage={true} fetchData={fetchData} />
+			<Typography
+				variant="body1"
+				gutterBottom
+				sx={{
+					color: theme.palette.text.primary,
+					marginTop: "10px",
+				}}
+			>
 				<strong>Search Results for:</strong> {searchString}
 			</Typography>
 			{loading ? (

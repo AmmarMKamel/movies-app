@@ -1,14 +1,20 @@
 import MovieCard from "../MovieCard/MovieCard";
 import Pagination from "../Pagination/Pagination";
+import { useTheme } from "@mui/material/styles";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
 export default function MoviesContainer(props) {
+	const theme = useTheme();
+
 	return (
 		<Container fluid="true">
-			<Typography variant="h4" sx={{ mb: 3 }}>
+			<Typography
+				variant="h4"
+				sx={{ mb: 3, color: theme.palette.text.primary }}
+			>
 				{props.heading}
 			</Typography>
 			<Grid container spacing={2}>
