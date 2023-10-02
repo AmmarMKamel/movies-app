@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { useSelector } from "react-redux";
 
 import { getImageUrl } from "../../api/services/imageServices";
 
@@ -12,6 +14,10 @@ import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function WatchListCard(props) {
+	const language = useSelector((state) => state.languageSlice.currentLang);
+
+	const theme = useTheme();
+
 	const navigate = useNavigate();
 
 	const handleMovieDetails = (movieId) => {
@@ -26,7 +32,7 @@ export default function WatchListCard(props) {
 				position: "relative",
 				borderRadius: "10px",
 				padding: "10px",
-				backgroundColor: "var(--bg-color)",
+				backgroundColor: theme.palette.background.default,
 				"@media (max-width:600px)": {
 					width: "auto",
 					margin: "0 auto",
@@ -48,7 +54,7 @@ export default function WatchListCard(props) {
 					<Typography
 						variant="h3"
 						component="div"
-						color="var(--secondary-color)"
+						color={theme.palette.secondary.main}
 						sx={{
 							fontWeight: "bold",
 							display: "flex",
@@ -59,14 +65,14 @@ export default function WatchListCard(props) {
 						{props.movie.original_title}
 						<FavoriteIcon
 							fontSize="large"
-							sx={{ color: "var(--primary-color)" }}
+							sx={{ color: theme.palette.primary.main }}
 						/>
 					</Typography>
 
 					<Typography
 						gutterBottom
 						variant="subtitle1"
-						color="var(--text-color)"
+						color={theme.palette.text.primary}
 						sx={{
 							fontSize: "0.874rem",
 							display: "flex",
@@ -75,7 +81,7 @@ export default function WatchListCard(props) {
 						}}
 					>
 						{new Date(props.movie.release_date).toLocaleDateString(
-							"en-US",
+							language,
 							{
 								month: "short",
 								day: "numeric",
@@ -95,7 +101,7 @@ export default function WatchListCard(props) {
 							name="read-only"
 							value={props.movie.vote_average / 2}
 							readOnly
-							style={{ color: "var(--text-color)" }}
+							style={{ color: theme.palette.text.primary }}
 						/>
 
 						<Typography sx={{ fontSize: "0.7rem" }}>
@@ -108,7 +114,7 @@ export default function WatchListCard(props) {
 						display="block"
 						variant="subtitle2"
 						component="div"
-						color="var(--text-color)"
+						color={theme.palette.text.primary}
 					>
 						{props.movie.overview}
 					</Typography>
