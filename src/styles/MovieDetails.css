@@ -1,13 +1,13 @@
 .genre-list {
-    list-style-type: none;
-    display: flex;
-    margin-bottom: 30px;
+	list-style-type: none;
+	display: flex;
+	margin-bottom: 30px;
 }
 
 .genre {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    padding: 8px 25px;
-    border-radius: 25px;
-    margin-right: 10px;
+	background-color: var(--primary-color);
+	color: var(--text-color);
+	padding: 8px 25px;
+	border-radius: 25px;
+	margin-right: 10px;
 }

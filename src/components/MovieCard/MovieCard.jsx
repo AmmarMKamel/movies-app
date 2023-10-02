@@ -22,7 +22,6 @@ export default function MovieCard(props) {
 				maxWidth: 345,
 				position: "relative",
 				boxShadow: "none",
-				borderRadius: "10px",
 				backgroundColor: "var(--bg-color)",
 				"@media (max-width:600px)": {
 					width: "auto",
@@ -32,20 +31,26 @@ export default function MovieCard(props) {
 		>
 			<figure
 				className="figure-hover"
+				style={{ borderRadius: "10px" }}
 				onClick={() => handleMovieDetails(props.movie.id)}
 			>
 				{props.movie.poster_path ? (
 					<img
 						src={getImageUrl(props.movie.poster_path)}
-						style={{ width: "100%", borderRadius: "10px" }}
+						style={{
+							width: "100%",
+							borderRadius: "10px",
+							height: "290px",
+						}}
 						alt={props.movie.title}
 					/>
 				) : (
 					<img
-						src="https://placehold.co/800x1200"
+						src="https://placehold.co/700x1200"
 						style={{
 							width: "100%",
 							borderRadius: "10px",
+							height: "290px",
 						}}
 						alt={props.movie.title}
 					/>
@@ -60,31 +65,45 @@ export default function MovieCard(props) {
 					variant="h6"
 					component="h6"
 					color="var(--text-color)"
-					sx={{ fontSize: "0.874rem", fontWeight: "bold", mt: 2 }}
-				>
-					{props.movie.original_title}
-				</Typography>
-				<Typography
-					variant="body2"
-					color="var(--text-color)"
 					sx={{
+						fontSize: "0.874rem",
+						fontWeight: "bold",
+						mt: 2,
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
 					}}
 				>
-					{new Date(props.movie.release_date).toLocaleDateString(
-						"en-US",
-						{
-							month: "short",
-							day: "numeric",
-							year: "numeric",
-						}
+					{props.movie.original_title}
+					{!props.movie.release_date && (
+						<FavoriteBorderOutlinedIcon
+							sx={{ color: "var(--primary-color)" }}
+						/>
 					)}
-					<FavoriteBorderOutlinedIcon
-						sx={{ color: "var(--primary-color)" }}
-					/>
 				</Typography>
+				{props.movie.release_date && (
+					<Typography
+						variant="body2"
+						color="var(--text-color)"
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "center",
+						}}
+					>
+						{new Date(props.movie.release_date).toLocaleDateString(
+							"en-US",
+							{
+								month: "short",
+								day: "numeric",
+								year: "numeric",
+							}
+						)}
+						<FavoriteBorderOutlinedIcon
+							sx={{ color: "var(--primary-color)" }}
+						/>
+					</Typography>
+				)}
 			</CardContent>
 		</Card>
 	);

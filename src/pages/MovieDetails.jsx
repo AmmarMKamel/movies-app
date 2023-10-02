@@ -150,20 +150,23 @@ export default function MovieDetails() {
 										{movie.runtime} Min.
 									</span>
 								)}
-								{movie.spoken_languages.length !== 0 && (
-									<span>
-										<strong style={{ marginRight: "15px" }}>
-											Languages:
-										</strong>{" "}
-										{movie.spoken_languages.map(
-											(language, idx) => (
-												<span key={idx}>
-													{language.english_name}{" "}
-												</span>
-											)
-										)}
-									</span>
-								)}
+								{movie.spoken_languages &&
+									movie.spoken_languages.length !== 0 && (
+										<span>
+											<strong
+												style={{ marginRight: "15px" }}
+											>
+												Languages:
+											</strong>{" "}
+											{movie.spoken_languages.map(
+												(language, idx) => (
+													<span key={idx}>
+														{language.english_name}{" "}
+													</span>
+												)
+											)}
+										</span>
+									)}
 							</div>
 							<div style={{ marginBottom: "20px" }}>
 								{movie.production_companies &&

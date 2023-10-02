@@ -44,18 +44,7 @@ const SearchResult = () => {
 	};
 
 	return (
-		<Container
-			disableGutters
-			maxWidth="xlg"
-			sx={{
-				width: "95%",
-				padding: "30px 50px",
-				marginTop: "25px",
-				marginBottom: "50px",
-				textAlign: "left",
-				borderRadius: "2px",
-			}}
-		>
+		<Container fluid="true" sx={{ py: 5 }}>
 			<SearchBar hasBorders={true} />
 			<Typography variant="body1" gutterBottom>
 				<strong>Search Results for:</strong> {searchString}
@@ -84,6 +73,7 @@ const SearchResult = () => {
 					<Pagination
 						pageCount={totalPages}
 						onPageChange={handlePageChange}
+						currentPage={currentPage}
 					/>
 				</>
 			)}

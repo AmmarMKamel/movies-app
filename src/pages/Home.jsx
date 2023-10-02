@@ -42,6 +42,7 @@ export default function Home() {
 					content={movies}
 					totalPages={totalPages}
 					handlePageChange={handlePageChange}
+					currentPage={currentPage}
 				/>
 			)}
 		</>
