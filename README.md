@@ -1,7 +1,15 @@
 
-# [Your Project Name]
+# Watch X
 
-A brief description of what the project is about. This can be a couple of sentences explaining the main purpose and functionality of the application.
+Watch X is a source for movie, TV and celebrity content, designed to help fans explore the world of movies and shows and decide what to watch.
+
+Our searchable database includes millions of movies, TV and entertainment programs and cast and crew members. 
+
+Watch X can help you:
+
+Jog your memory about a movie, show, or person on the tip of your tongue
+Find the best movie or show to watch next
+Empower you to share your entertainment knowledge and opinions with the world’s largest community of fans
 
 ## Features
 
@@ -43,11 +51,3 @@ A brief description of what the project is about. This can be a couple of senten
 ## Configuration
 
 - **API Configuration**: Modify `apiConfig.jsx` to change the base URL or other API-related settings.
-
-## Screenshots/GIFs
-
-(Here, you can insert screenshots or GIFs of the application in action.)
-
-## Contribution
-
-Guidelines for contributing to the project (if open for contribution).
