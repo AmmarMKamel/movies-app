@@ -1,6 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import { useDispatch } from "react-redux";
+import { watchlistCount } from "../store/slices/watchlist";
+
+import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
+
 import { Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import MovieCard from "../components/MovieCard/MovieCard";
@@ -9,12 +14,35 @@ import Pagination from "../components/Pagination/Pagination";
 import SearchBar from "../components/Search/SearchBar";
 import { fetchMovieDetailsByName } from "../api/services/searchService";
 
+
 const SearchResult = () => {
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const searchString = location.state?.query;
   const [moviesList, setmoviesList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1000);
+
+  const [watchlistMovies, setWatchlistMovies] = useState([]);
+  dispatch(watchlistCount(watchlistMovies.length));
+  const [change, setChange] = useState(0);
+
+  const isFavorite = (id) => {
+    if (watchlistMovies.find((movie) => movie.id == id)) {
+      return true
+    }
+  }
+
+  const handelFavorite = async (id) => {
+    if (isFavorite(id)) {
+      await addOrRemoveFromWatchList(id, false);
+    }
+    else {
+      await addOrRemoveFromWatchList(id);
+    }
+    setChange(change + 1);
+  }
 
   useEffect(() => {
     fetchMovieDetailsByName(searchString)
@@ -23,7 +51,13 @@ const SearchResult = () => {
         setTotalPages(data.total_pages);
       })
 
-  }, []);
+    fetchWatchlist()
+      .then((data) => {
+        setWatchlistMovies(data.results);
+      })
+      .catch((err) => console.log(err));
+
+  }, [change]);
 
   useEffect(() => {
     fetchMovieDetailsByName(searchString, currentPage)
@@ -60,7 +94,11 @@ const SearchResult = () => {
         {moviesList &&
           moviesList.map((movie) => (
             <Grid item="true" xs={12} sm={6} md={4} lg={2} key={movie.id}>
-              <MovieCard movie={movie} />
+              <MovieCard
+                movie={movie}
+                isFavorite={(id) => isFavorite(id)}
+                handelFavorite={(id) => handelFavorite(id)}
+              />
             </Grid>
           ))}
       </Grid>

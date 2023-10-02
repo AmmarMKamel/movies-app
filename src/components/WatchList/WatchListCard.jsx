@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Grid from "@mui/material/Grid";
 
 export default function WatchListCard(props) {
@@ -20,13 +21,13 @@ export default function WatchListCard(props) {
         <Card
             sx={{
                 display: 'flex',
-                maxWidth: 600,
                 position: "relative",
                 borderRadius: "10px",
-                padding: "10px",
+                padding: "20px",
                 backgroundColor: "var(--bg-color)",
                 "@media (max-width:600px)": {
                     width: "auto",
+                    height: "auto",
                     margin: "0 auto",
                 },
             }}
@@ -58,8 +59,8 @@ export default function WatchListCard(props) {
                     >
                         <Box>
                             <Typography
-                                variant="h3"
-                                component="h3"
+                                variant="h4"
+                                component="h4"
                                 sx={{
                                     fontWeight: "bold",
                                     color: "var(--text-color)",
@@ -77,10 +78,21 @@ export default function WatchListCard(props) {
                                 })}
                             </Typography>
                         </Box>
+                        <div
+                        className="figure-hover"
+                        onClick={() => props.handelFavorite(props.movie.id)}
+                        >
+                        {props.isFavorite(props.movie.id) ?
                         <FavoriteIcon
                             fontSize="large"
                             sx={{ color: "var(--primary-color)" }}
+                        /> : 
+                        <FavoriteBorderOutlinedIcon
+                            fontSize="large"
+                            sx={{ color: "var(--primary-color)" }}
                         />
+                        }
+                        </div>
                     </Box>
                     {props.movie.vote_average && (
                         <Box sx={{

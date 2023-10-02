@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import WatchListIcon from "@mui/icons-material/Favorite";
+import Badge from '@mui/material/Badge';
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputBase from "@mui/material/InputBase";
@@ -22,6 +23,8 @@ const Header = () => {
   const availableLanguages = useSelector(
     (state) => state.languageSlice.availableLang
   );
+
+  const count = useSelector((state) => state.watchlistSlice.count);
 
   const handleLanguageChange = (event) => {
     dispatch(setCurrentLang(event.target.value));
@@ -76,7 +79,10 @@ const Header = () => {
               marginLeft: "10px",
             }}
           >
-            <WatchListIcon sx={{ marginRight: "8px" }} /> watchlist
+            watchlist
+            <Badge badgeContent={count}>
+            <WatchListIcon sx={{ marginLeft: "8px" }} />
+            </Badge>
           </IconButton>
         </div>
       </Toolbar>

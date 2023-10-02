@@ -6,6 +6,8 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
 export default function MoviesContainer(props) {
+
+    
     return (
         <Container fluid="true">
             <Typography variant="h4" sx={{ mb: 3 }}>
@@ -22,7 +24,11 @@ export default function MoviesContainer(props) {
                             lg={2}
                             key={movie.id}
                         >
-                            <MovieCard movie={movie} />
+                            <MovieCard 
+                            movie={movie}
+                            isFavorite={(id)=>props.isFavorite(id)}
+                            handelFavorite={(id)=>props.handelFavorite(id)}
+                            />
                         </Grid>
                     ))}
             </Grid>

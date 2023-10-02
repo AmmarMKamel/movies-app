@@ -26,7 +26,7 @@ export default function EmptyWatchList() {
         >
             <img
 
-                style={{ width: "60%" }}
+                style={{ width: "40%" }}
                 src={noFavImg}
                 loading="lazy"
             />

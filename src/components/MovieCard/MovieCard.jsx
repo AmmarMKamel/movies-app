@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 
 import "./../../styles/MovieCard.css";
@@ -70,9 +71,21 @@ export default function MovieCard(props) {
                             year: "numeric",
                         }
                     )}
-                    <FavoriteBorderOutlinedIcon
-                        sx={{ color: "var(--primary-color)" }}
-                    />
+                   <span
+                        className="figure-hover"
+                        onClick={() => props.handelFavorite(props.movie.id)}
+                        >
+                        {props.isFavorite(props.movie.id) ?
+                        <FavoriteIcon
+                            fontSize="large"
+                            sx={{ color: "var(--primary-color)" }}
+                        /> : 
+                        <FavoriteBorderOutlinedIcon
+                            fontSize="large"
+                            sx={{ color: "var(--primary-color)" }}
+                        />
+                        }
+                        </span>
                 </Typography>
             </CardContent>
         </Card>

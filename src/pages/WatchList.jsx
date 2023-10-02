@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { fetchWatchlist } from "../api/services/watchlistService";
+import { useDispatch } from "react-redux";
+import { watchlistCount } from "../store/slices/watchlist";
+
+import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
 
 import WatchListCard from "../components/WatchList/WatchListCard";
 import EmptyWatchList from "../components/WatchList/EmptyWatchList";
@@ -10,7 +13,27 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
 export default function WatchList() {
+    const dispatch = useDispatch();
+
     const [movies, setMovies] = useState([]);
+    dispatch(watchlistCount(movies.length));
+    const [change, setChange] = useState(0);
+
+    const isFavorite = (id) => {
+        if (movies.find((movie) => movie.id == id)) {
+            return true
+        }
+    }
+
+    const handelFavorite = async (id) => {
+        if (isFavorite(id)) {
+            await addOrRemoveFromWatchList(id,false);
+        }
+        else {
+            await addOrRemoveFromWatchList(id);
+        }
+        setChange(change+1);
+    }
 
     useEffect(() => {
         fetchWatchlist()
@@ -18,14 +41,13 @@ export default function WatchList() {
                 setMovies(data.results);
             })
             .catch((err) => console.log(err));
-    }, []);
-    console.log(movies)
+    }, [change]);
 
     return (
 
         // <EmptyWatchList />
         <Container fluid="true">
-            <Typography variant="h4" sx={{ mb: 3 }}>
+            <Typography variant="h4" sx={{ my: 3 }}>
                 Watch List
             </Typography>
             {movies.length == 0 &&
@@ -42,7 +64,11 @@ export default function WatchList() {
                             lg={6}
                             key={movie.id}
                         >
-                            <WatchListCard movie={movie} />
+                            <WatchListCard
+                            isFavorite={(id)=>isFavorite(id)} 
+                            handelFavorite={(id)=>handelFavorite(id)}
+                            movie={movie} 
+                            />
                         </Grid>
                     ))}
             </Grid>

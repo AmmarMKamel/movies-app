@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { watchlistCount } from "../store/slices/watchlist";
+
+import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
+
 import {
     fetchMovieDetails,
     fetchMovieRecommendations,
@@ -14,15 +19,38 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Rating from "@mui/material/Rating";
 import LinkIcon from "@mui/icons-material/Link";
 
 import "./../styles/MovieDetails.css";
 
 export default function MovieDetails() {
+    const dispatch = useDispatch();
+
     const [movie, setMovie] = useState({});
     const [recommendedMovies, setRecommendedMovies] = useState([]);
     const { id } = useParams();
+
+    const [watchlistMovies, setWatchlistMovies] = useState([]);
+    dispatch(watchlistCount(watchlistMovies.length));
+    const [change, setChange] = useState(0);
+
+    const isFavorite = (id) => {
+        if (watchlistMovies.find((movie) => movie.id == id)) {
+            return true
+        }
+    }
+
+    const handelFavorite = async (id) => {
+        if (isFavorite(id)) {
+            await addOrRemoveFromWatchList(id, false);
+        }
+        else {
+            await addOrRemoveFromWatchList(id);
+        }
+        setChange(change + 1);
+    }
 
     useEffect(() => {
         fetchMovieDetails(id)
@@ -38,7 +66,13 @@ export default function MovieDetails() {
                 console.log(data);
             })
             .catch((err) => console.log(err));
-    }, [id]);
+
+        fetchWatchlist()
+            .then((data) => {
+                setWatchlistMovies(data.results);
+            })
+            .catch((err) => console.log(err));
+    }, [id, change]);
 
     return (
         <>
@@ -89,9 +123,21 @@ export default function MovieDetails() {
                                         })}
                                     </Typography>
                                 </div>
-                                <FavoriteBorderOutlinedIcon
-                                    sx={{ color: "var(--primary-color)" }}
-                                />
+                                <div
+                                    className="figure-hover"
+                                    onClick={() => handelFavorite(movie.id)}
+                                >
+                                    {isFavorite(movie.id) ?
+                                        <FavoriteIcon
+                                            fontSize="large"
+                                            sx={{ color: "var(--primary-color)" }}
+                                        /> :
+                                        <FavoriteBorderOutlinedIcon
+                                            fontSize="large"
+                                            sx={{ color: "var(--primary-color)" }}
+                                        />
+                                    }
+                                </div>
                             </div>
                             {movie.vote_average && (
                                 <Rating
@@ -185,7 +231,11 @@ export default function MovieDetails() {
                                         lg={2}
                                         key={movie.id}
                                     >
-                                        <MovieCard movie={movie} />
+                                        <MovieCard
+                                        movie={movie}
+                                        isFavorite={(id) => isFavorite(id)}
+                                        handelFavorite={(id) => handelFavorite(id)}
+                                        />
                                     </Grid>
                                 ))}
                         </Grid>
