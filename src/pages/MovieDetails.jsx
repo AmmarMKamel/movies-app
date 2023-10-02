@@ -7,14 +7,14 @@ import { watchlistCount } from "../store/slices/watchlist";
 import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
 
 import {
-  fetchMovieDetails,
-  fetchMovieRecommendations,
+	fetchMovieDetails,
+	fetchMovieRecommendations,
 } from "../api/services/moviesService";
 import { getImageUrl } from "../api/services/imageServices";
 
 import MovieCard from "../components/MovieCard/MovieCard";
 import { useSelector } from "react-redux";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -88,7 +88,12 @@ export default function MovieDetails() {
   return (
     <>
       {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+        <Box 
+          sx={{ 
+              display: "flex", 
+              justifyContent: "center", 
+              mt: 10 
+          }}>
           <CircularProgress size={100} />
         </Box>
       ) : (
@@ -126,6 +131,7 @@ export default function MovieDetails() {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <div>
@@ -145,7 +151,7 @@ export default function MovieDetails() {
                         color: theme.palette.text.primary,
                       }}>
                       {new Date(movie.release_date).toLocaleDateString(
-                        language,
+                        "en-US",
                         {
                           month: "short",
                           day: "numeric",
@@ -183,101 +189,159 @@ export default function MovieDetails() {
                 />
               )}
 
-              {movie.overview && (
-                <p style={{ marginBottom: "30px", color: theme.palette.text.primary, }}>{movie.overview}</p>
-              )}
+							{movie.overview && (
+								<p
+									style={{
+										marginBottom: "30px",
+										color: theme.palette.text.primary,
+									}}
+								>
+									{movie.overview}
+								</p>
+							)}
 
-              <ul className="genre-list">
-                {movie.genres &&
-                  movie.genres.map((genre) => (
-                    <li key={genre.id} className="genre" style={{ color: theme.palette.text.primary }}>
-                      {genre.name}
-                    </li>
-                  ))}
-              </ul>
-              <div style={{ marginBottom: "20px" }}>
-                {movie.runtime !== 0 && (
-                  <span style={{ marginRight: "50px", color: theme.palette.text.primary }}>
-                    <strong style={{ marginRight: "15px", color: theme.palette.text.primary }}>Duration:</strong>{" "}
-                    {movie.runtime} Min.
-                  </span>
-                )}
-                {movie.spoken_languages.length !== 0 && (
-                  <span>
-                    <strong style={{ marginRight: "15px", color: theme.palette.text.primary }}>Languages:</strong>{" "}
-                    {movie.spoken_languages.map((language, idx) => (
-                      <span key={idx} style={{ color: theme.palette.text.primary }}>{language.english_name} </span>
-                    ))}
-                  </span>
-                )}
-              </div>
-              <div style={{ marginBottom: "20px" }}>
-                {movie.production_companies &&
-                  movie.production_companies.length !== 0 &&
-                  movie.production_companies[0].logo_path ? (
-                  <img
-                    src={getImageUrl(movie.production_companies[0].logo_path)}
-                    style={{ width: "10%", backgroundColor: theme.palette.background.staticLight }}
-                    alt={movie.original_title}
-                  />
-                ) : (
-                  <img
-                    src="https://placehold.co/100x100"
-                    style={{
-                      width: "10%",
-                      borderRadius: "10px",
-                    }}
-                    alt={movie.original_title}
-                  />
-                )}
-              </div>
-              {movie.homepage && (
-                <Button
-                  endIcon={<LinkIcon />}
-                  style={{
-                    border: `1px solid ${theme.palette.primary.main}`,
-                    borderRadius: "25px",
-                    color: theme.palette.text.primary,
-                    padding: "8px 25px",
-                  }}
-                >
-                  <a
-                    href={movie.homepage}
-                    style={{ color: theme.palette.text.primary }}
-                  >
-                    Website
-                  </a>
-                </Button>
-              )}
-            </Grid>
-          </Grid>
-          <Grid container spacing={2} sx={{ py: 5 }}>
-            <Typography
-              variant="h3"
-              component="h3"
-              sx={{
-                fontWeight: "bold",
-                color: theme.palette.text.primary,
-                mb: 5,
-              }}
-            >
-              Recommendations
-            </Typography>
-            <Grid container spacing={2}>
-              {recommendedMovies &&
-                recommendedMovies.map((movie) => (
-                  <Grid item={true} xs={12} sm={6} md={4} lg={2} key={movie.id}>
-                    <MovieCard
-                      movie={movie}
-                      isFavorite={(id) => isFavorite(id)}
-                      handelFavorite={(id) => handelFavorite(id)}
+							<ul className="genre-list">
+								{movie.genres &&
+									movie.genres.map((genre) => (
+										<li
+											key={genre.id}
+											className="genre"
+											style={{
+												color: theme.palette.text.primary,
+											}}
+										>
+											{genre.name}
+										</li>
+									))}
+							</ul>
+							<div style={{ marginBottom: "20px" }}>
+								{movie.runtime !== 0 && (
+									<span
+										style={{
+											marginRight: "50px",
+											color: theme.palette.text.primary,
+										}}
+									>
+										<strong
+											style={{
+												marginRight: "15px",
+												color: theme.palette.text.primary,
+											}}
+										>
+											Duration:
+										</strong>{" "}
+										{movie.runtime} Min.
+									</span>
+								)}
+								{movie.spoken_languages &&
+									movie.spoken_languages.length !== 0 && (
+										<span>
+											<strong
+												style={{
+													marginRight: "15px",
+													color: theme.palette.text
+														.primary,
+												}}
+											>
+												Languages:
+											</strong>{" "}
+											{movie.spoken_languages.map(
+												(language, idx) => (
+													<span
+														key={idx}
+														style={{
+															color: theme.palette.text.primary,
+														}}
+													>
+														{language.english_name}{" "}
+													</span>
+												)
+											)}
+										</span>
+									)}
+							</div>
+							<div style={{ marginBottom: "20px" }}>
+								{movie.production_companies &&
+								movie.production_companies.length !== 0 &&
+								movie.production_companies[0].logo_path ? (
+									<img
+										src={getImageUrl(
+											movie.production_companies[0].logo_path
+										)}
+										style={{
+											width: "10%",
+											backgroundColor:
+												theme.palette.background.staticLight,
+										}}
+										alt={movie.original_title}
+									/>
+								) : (
+									<img
+										src="https://placehold.co/100x100"
+										style={{
+											width: "10%",
+											borderRadius: "10px",
+										}}
+										alt={movie.original_title}
+									/>
+								)}
+							</div>
+							{movie.homepage && (
+								<Button
+									endIcon={<LinkIcon />}
+									style={{
+										border: `1px solid ${theme.palette.primary.main}`,
+										borderRadius: "25px",
+										color: theme.palette.text.primary,
+										padding: "8px 25px",
+									}}
+								>
+									<a
+										href={movie.homepage}
+										style={{
+											color: theme.palette.text.primary,
+										}}
+									>
+										Website
+									</a>
+								</Button>
+							)}
+						</Grid>
+					</Grid>
+					<Grid container spacing={2} sx={{ py: 5 }}>
+						<Typography
+							variant="h3"
+							component="h3"
+							sx={{
+								fontWeight: "bold",
+								color: theme.palette.text.primary,
+								mb: 5,
+							}}
+						>
+							Recommendations
+						</Typography>
+						<Grid container spacing={2}>
+							{recommendedMovies &&
+								recommendedMovies.map((movie) => (
+									<Grid
+										item={true}
+										xs={12}
+										sm={6}
+										md={4}
+										lg={2}
+										key={movie.id}
+									>
+										<MovieCard 
+                    movie={movie} 
+                    isFavorite={(id) => isFavorite(id)}
+                    handelFavorite={(id) => handelFavorite(id)}
                     />
-                  </Grid>
-                ))}
-            </Grid>
-          </Grid>
-        </Container>
-      )}
-    </>
-  );
+									</Grid>
+								))}
+						</Grid>
+					</Grid>
+				</Container>
+			)}
+		</>
+	);
 }

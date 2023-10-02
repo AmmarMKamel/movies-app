@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { getImageUrl } from "../../api/services/imageServices";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -38,20 +38,26 @@ export default function MovieCard(props) {
 		>
 			<figure
 				className="figure-hover"
+				style={{ borderRadius: "10px" }}
 				onClick={() => handleMovieDetails(props.movie.id)}
 			>
 				{props.movie.poster_path ? (
 					<img
 						src={getImageUrl(props.movie.poster_path)}
-						style={{ width: "100%", borderRadius: "10px" }}
+						style={{
+							width: "100%",
+							borderRadius: "10px",
+							height: "290px",
+						}}
 						alt={props.movie.title}
 					/>
 				) : (
 					<img
-						src="https://placehold.co/800x1200"
+						src="https://placehold.co/700x1200"
 						style={{
 							width: "100%",
 							borderRadius: "10px",
+							height: "290px",
 						}}
 						alt={props.movie.title}
 					/>
@@ -65,21 +71,18 @@ export default function MovieCard(props) {
 					gutterBottom
 					variant="h6"
 					component="h6"
-					sx={{ color: theme.palette.text.primary, fontSize: "0.874rem", fontWeight: "bold", mt: 2 }}
-				>
-					{props.movie.original_title}
-				</Typography>
-				<Typography
-					variant="body2"
 					sx={{
 						color: theme.palette.text.primary,
+						fontSize: "0.874rem",
+						fontWeight: "bold",
+						mt: 2,
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
 					}}
 				>
 					{new Date(props.movie.release_date).toLocaleDateString(
-						language,
+						"en-US",
 						{
 							month: "short",
 							day: "numeric",

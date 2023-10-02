@@ -75,23 +75,16 @@ const SearchResult = () => {
 	};
 
 	return (
-		<Container
-			disableGutters
-			maxWidth="xlg"
-			sx={{
-				width: "95%",
-				padding: "30px 50px",
-				marginTop: "25px",
-				marginBottom: "50px",
-				textAlign: "left",
-				borderRadius: "2px",
-			}}
-		>
-			<SearchBar searchPage={true} fetchData={fetchData}/>
-			<Typography variant="body1" gutterBottom sx={{
+		<Container fluid="true" sx={{ py: 5 }}>
+			<SearchBar searchPage={true} fetchData={fetchData} />
+			<Typography
+				variant="body1"
+				gutterBottom
+				sx={{
 					color: theme.palette.text.primary,
-					marginTop: "10px"
-				}}>
+					marginTop: "10px",
+				}}
+			>
 				<strong>Search Results for:</strong> {searchString}
 			</Typography>
 			{loading ? (
@@ -122,6 +115,7 @@ const SearchResult = () => {
 					<Pagination
 						pageCount={totalPages}
 						onPageChange={handlePageChange}
+						currentPage={currentPage}
 					/>
 				</>
 			)}
