@@ -3,8 +3,11 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import SearchBar from './SearchBar';
 import { useTheme } from '@mui/material/styles';
+import translations from '../../utils/translations';
+import { useSelector } from "react-redux";
 
 const SearchWidget = () => {
+  const language = useSelector((state) => state.languageSlice.currentLang);
   const theme = useTheme();
 
   return (
@@ -16,15 +19,17 @@ const SearchWidget = () => {
         padding: '30px 50px',
         marginTop: '25px',
         marginBottom: '50px',
-        textAlign: 'left',
         borderRadius: "2px",
       }}
     >
-      <Typography variant="h4" gutterBottom sx={{color: theme.palette.text.primary}}>
-        Welcome to our movie app
+      <Typography variant="h4" gutterBottom
+      sx={{
+        color: theme.palette.text.primary,
+        }}>
+        {translations[language].searchTitle}
       </Typography>
       <Typography variant="body1" gutterBottom sx={{color: theme.palette.text.primary}}>
-        Millions of movies, TV shows and people to discover. Explore now.
+      {translations[language].searchDescription}
       </Typography>
       <SearchBar />
     </Container>

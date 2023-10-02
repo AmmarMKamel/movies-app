@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
+import translations from '../utils/translations';
+import { useSelector } from "react-redux";
+
 import { watchlistCount } from "../store/slices/watchlist";
 
 import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
@@ -13,6 +16,7 @@ import MoviesContainer from "../components/MoviesContainer/MoviesContainer";
 import SearchWidget from "../components/Search/SearchWidget";
 
 export default function Home() {
+	const language = useSelector((state) => state.languageSlice.currentLang);
 	const dispatch = useDispatch();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [movies, setMovies] = useState([]);
@@ -29,7 +33,7 @@ export default function Home() {
 	};
 
 	const isFavorite = (id) => {
-		if (watchlistMovies.find((movie) => movie.id == id)) {
+		if (watchlistMovies.find((movie) => movie.id === id)) {
 			return true
 		}
 	}
@@ -70,7 +74,7 @@ export default function Home() {
 				</Box>
 			) : (
 				<MoviesContainer
-					heading="Popular Movies"
+					heading={translations[language].homeHeader}
 					content={movies}
 					totalPages={totalPages}
 					handlePageChange={handlePageChange}

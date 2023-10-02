@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useTheme } from '@mui/material/styles';
+import translations from '../../utils/translations';
+import { useSelector } from "react-redux";
 
-const SearchBar = ({ searchPage, fetchData }) => {
+const SearchBar = ({ searchPage, fetchData, initialSearchTerm }) => {
+  const language = useSelector((state) => state.languageSlice.currentLang);
   const theme = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
@@ -22,6 +25,10 @@ const SearchBar = ({ searchPage, fetchData }) => {
   }
 
   useEffect(() =>{
+    setSearchTerm(initialSearchTerm);
+  }, [])
+
+  useEffect(() =>{
 
     if(searchPage && fetchData)
         fetchData(searchTerm);
@@ -31,13 +38,14 @@ const SearchBar = ({ searchPage, fetchData }) => {
     <div className="search-bar">
       <TextField
         variant="outlined"
-        placeholder="Search and explore..."
+        placeholder={translations[language].searchField}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown}
         sx={{
           marginBottom: "1rem",
-          marginRight: "1rem",
+          marginRight: language =="Ar"? "0":"1rem",
+          marginLeft: language =="Ar"? "1rem":"0",
           width: '85%',
           backgroundColor: theme.palette.background.default,
           borderRadius: "8px",
@@ -52,6 +60,7 @@ const SearchBar = ({ searchPage, fetchData }) => {
         variant="contained"
         onClick={handleSearch}
         sx={{
+          fontWeight: "bold",
           backgroundColor: theme.palette.primary.main,
           borderRadius: "8px",
           padding: "10px 40px",
@@ -61,7 +70,7 @@ const SearchBar = ({ searchPage, fetchData }) => {
           },
         }}
       >
-        Search
+        {translations[language].searchButton}
       </Button>
     </div>
   );

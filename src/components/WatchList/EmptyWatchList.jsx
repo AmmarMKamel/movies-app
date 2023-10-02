@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
+import translations from '../../utils/translations';
+import { useSelector } from "react-redux";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,6 +10,7 @@ import Button from "@mui/material/Button";
 import noFavImg from '../../assets/noFavorite.png'
 
 export default function EmptyWatchList() {
+    const language = useSelector((state) => state.languageSlice.currentLang);
     const navigate = useNavigate();
 	const theme = useTheme();
 
@@ -22,6 +25,7 @@ export default function EmptyWatchList() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                zIndex: -1
             }}
             container
             direction="column"
@@ -38,19 +42,20 @@ export default function EmptyWatchList() {
                 variant="h4"
                 color={theme.palette.secondary.main}
             >
-                No Movies in watch list
+                {translations[language].emptyWatchListText1}
             </Typography>
 
             <Typography
                 color={theme.palette.text.primary}
             >
-                Add the movies you are intersted in to appear here
+                {translations[language].emptyWatchListText1}
             </Typography>
 
             <Button
                 variant="contained"
                 onClick={()=> navigate('/')}
                 sx={{
+                    fontWeight: "bold",
                     m : 3,
                     backgroundColor: theme.palette.primary.main,
                     borderRadius: "8px",
@@ -61,7 +66,7 @@ export default function EmptyWatchList() {
                     },
                 }}
             >
-                Home
+                {translations[language].HomeButton}
             </Button>
         </Grid>
     )

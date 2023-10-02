@@ -6,8 +6,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useTheme } from '@mui/material/styles';
+import translations from '../../utils/translations';
+import { useSelector } from "react-redux";
+
 
 export default function Error404() {
+    const language = useSelector((state) => state.languageSlice.currentLang);
+
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -22,6 +27,7 @@ export default function Error404() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                zIndex: -1
             }}
             container
             direction="column"
@@ -38,19 +44,20 @@ export default function Error404() {
                 variant="h4"
                 color={theme.palette.secondary.main}
             >
-                The page you are looking for is not avaible!
+                {translations[language].notFoundText1}
             </Typography>
 
             <Typography
                 color={theme.palette.text.primary}
             >
-                Looks like you're lost , let's go back Home
+                {translations[language].notFoundText2}
             </Typography>
 
             <Button
                 variant="contained"
                 onClick={()=> navigate('/')}
                 sx={{
+                    fontWeight: "bold",
                     m : 3,
                     backgroundColor: theme.palette.primary.main,
                     borderRadius: "8px",
@@ -61,7 +68,7 @@ export default function Error404() {
                     },
                 }}
             >
-                Home
+                {translations[language].HomeButton}
             </Button>
         </Grid>
     )

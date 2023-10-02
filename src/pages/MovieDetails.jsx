@@ -15,6 +15,8 @@ import { getImageUrl } from "../api/services/imageServices";
 import MovieCard from "../components/MovieCard/MovieCard";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
+import translations from '../utils/translations';
+
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -46,7 +48,7 @@ export default function MovieDetails() {
   const [change, setChange] = useState(0);
 
   const isFavorite = (id) => {
-    if (watchlistMovies.find((movie) => movie.id == id)) {
+    if (watchlistMovies.find((movie) => movie.id === id)) {
       return true
     }
   }
@@ -88,11 +90,11 @@ export default function MovieDetails() {
   return (
     <>
       {loading ? (
-        <Box 
-          sx={{ 
-              display: "flex", 
-              justifyContent: "center", 
-              mt: 10 
+        <Box
+          sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: 10
           }}>
           <CircularProgress size={100} />
         </Box>
@@ -151,7 +153,7 @@ export default function MovieDetails() {
                         color: theme.palette.text.primary,
                       }}>
                       {new Date(movie.release_date).toLocaleDateString(
-                        "en-US",
+                        language,
                         {
                           month: "short",
                           day: "numeric",
@@ -179,7 +181,7 @@ export default function MovieDetails() {
               </div>
               {movie.vote_average && (
                 <Rating
-                  value={movie.vote_average / 2}
+                  value={language == "Ar"? Math.floor(movie.vote_average / 2): movie.vote_average / 2}
                   precision={0.5}
                   sx={{
                     mb: 4,
@@ -228,9 +230,9 @@ export default function MovieDetails() {
 												color: theme.palette.text.primary,
 											}}
 										>
-											Duration:
+											{translations[language].detailsPageDuration}
 										</strong>{" "}
-										{movie.runtime} Min.
+										{movie.runtime} {translations[language].detailsPageDurationMin}.
 									</span>
 								)}
 								{movie.spoken_languages &&
@@ -243,7 +245,7 @@ export default function MovieDetails() {
 														.primary,
 												}}
 											>
-												Languages:
+												{translations[language].detailsPageLanguages}
 											</strong>{" "}
 											{movie.spoken_languages.map(
 												(language, idx) => (
@@ -302,13 +304,13 @@ export default function MovieDetails() {
 											color: theme.palette.text.primary,
 										}}
 									>
-										Website
+										{translations[language].detailsPageWebsite}
 									</a>
 								</Button>
 							)}
 						</Grid>
 					</Grid>
-					<Grid container spacing={2} sx={{ py: 5 }}>
+					{recommendedMovies?.length !== 0 && <Grid container spacing={2} sx={{ py: 5 }}>
 						<Typography
 							variant="h3"
 							component="h3"
@@ -318,7 +320,7 @@ export default function MovieDetails() {
 								mb: 5,
 							}}
 						>
-							Recommendations
+							{translations[language].detailsPageRecommendations}
 						</Typography>
 						<Grid container spacing={2}>
 							{recommendedMovies &&
@@ -331,15 +333,15 @@ export default function MovieDetails() {
 										lg={2}
 										key={movie.id}
 									>
-										<MovieCard 
-                    movie={movie} 
+										<MovieCard
+                    movie={movie}
                     isFavorite={(id) => isFavorite(id)}
                     handelFavorite={(id) => handelFavorite(id)}
                     />
 									</Grid>
 								))}
 						</Grid>
-					</Grid>
+					</Grid>}
 				</Container>
 			)}
 		</>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
+import { useTheme } from '@mui/material/styles';
+
 import { watchlistCount } from "../store/slices/watchlist";
 
 import { fetchWatchlist, addOrRemoveFromWatchList } from "../api/services/watchlistService";
@@ -13,8 +15,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import translations from '../utils/translations';
+import { useSelector } from "react-redux";
 
 export default function WatchList() {
+	const language = useSelector((state) => state.languageSlice.currentLang);
+	const theme = useTheme();
+
     const dispatch = useDispatch();
 
 	const [movies, setMovies] = useState([]);
@@ -22,7 +29,7 @@ export default function WatchList() {
     const [change, setChange] = useState(0);
 
     const isFavorite = (id) => {
-        if (movies.find((movie) => movie.id == id)) {
+        if (movies.find((movie) => movie.id === id)) {
             return true
         }
     }
@@ -57,10 +64,10 @@ export default function WatchList() {
 				</Box>
 			) : (
 				<Container fluid="true">
-					<Typography variant="h4" sx={{ my: 3 }}>
-						Watch List
+					<Typography variant="h4" sx={{ my: 3, color: theme.palette.text.primary }}>
+						{translations[language].watchListHeader}
 					</Typography>
-					{movies.length == 0 && <EmptyWatchList />}
+					{movies.length === 0 && <EmptyWatchList />}
 					<Grid container spacing={2}>
 						{movies &&
 							movies.map((movie) => (
@@ -73,9 +80,9 @@ export default function WatchList() {
 									key={movie.id}
 								>
 									<WatchListCard
-                            isFavorite={(id)=>isFavorite(id)} 
+                            isFavorite={(id)=>isFavorite(id)}
                             handelFavorite={(id)=>handelFavorite(id)}
-                            movie={movie} 
+                            movie={movie}
                             />
 								</Grid>
 							))}

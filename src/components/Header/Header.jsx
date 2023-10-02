@@ -17,6 +17,7 @@ import { useTheme } from '@mui/material/styles';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputBase from "@mui/material/InputBase";
 import ThemeToggle from "../ThemeToggler/ThemeToggle";
+import translations from '../../utils/translations';
 
 
 const Header = () => {
@@ -59,12 +60,15 @@ const Header = () => {
         >
           Watch X
         </Button>
-        <div style={{ marginLeft: "auto"}}>
+        <div style={{
+          marginLeft: language === "Ar"? "none":"auto",
+          marginRight: language === "Ar"? "auto":"none"
+          }}>
           <ThemeToggle/>
           <Select
             value={language}
             onChange={handleLanguageChange}
-            sx={{ color: theme.palette.text.secondary, fontSize: ".8rem" }}
+            sx={{ color: theme.palette.text.secondary, fontSize: ".8rem", marginLeft: "20px"}}
             IconComponent={KeyboardArrowDownIcon}
             input={<InputBase/>}
           >
@@ -81,12 +85,13 @@ const Header = () => {
             sx={{
               color: theme.palette.text.secondary,
               fontSize: ".8rem",
-              marginLeft: "10px",
+              marginLeft: language === "Ar"?"0":"10px",
+              marginLeft: language === "Ar"?"10px":"0",
             }}
           >
-            watchlist
+            {translations[language].headerWatchButton}
             <Badge badgeContent={count}>
-            <WatchListIcon sx={{ marginLeft: "8px" }} />
+            <WatchListIcon sx={{ marginLeft: "8px", marginRight: "8px" }} />
             </Badge>
           </IconButton>
         </div>

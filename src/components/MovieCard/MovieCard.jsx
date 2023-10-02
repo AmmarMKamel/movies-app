@@ -70,10 +70,10 @@ export default function MovieCard(props) {
 				<Typography
                     variant="h6"
                     component="h6"
-                    sx={{ 
+                    sx={{
 						color: theme.palette.secondary,
-						fontSize: "1rem", 
-						fontWeight: "bold", 
+						fontSize: "1rem",
+						fontWeight: "bold",
 						mt: 2 }}
                 >
                     {props.movie.original_title}
@@ -88,7 +88,7 @@ export default function MovieCard(props) {
                     }}
                 >
                     {new Date(props.movie.release_date).toLocaleDateString(
-                        "en-US",
+                        language,
                         {
                             month: "short",
                             day: "numeric",
@@ -103,7 +103,7 @@ export default function MovieCard(props) {
                         <FavoriteIcon
                             fontSize="large"
                             sx={{ color: theme.palette.primary.main }}
-                        /> : 
+                        /> :
     					<FavoriteBorderOutlinedIcon
                             fontSize="large"
     						sx={{ color: theme.palette.primary.main }}

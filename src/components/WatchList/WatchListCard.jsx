@@ -120,7 +120,7 @@ export default function WatchListCard(props) {
                             alignItems: "center",
                         }}>
                             <Rating
-                                value={props.movie.vote_average / 2}
+                                value={language == "Ar"? Math.floor(props.movie.vote_average / 2): props.movie.vote_average / 2}
                                 precision={0.5}
                                 sx={{
                                     mb: 2,
@@ -140,7 +140,7 @@ export default function WatchListCard(props) {
                     )}
 
                     <Typography sx={{
-                        marginBottom: "20px", 
+                        marginBottom: "20px",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         display: "-webkit-box",

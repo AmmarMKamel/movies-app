@@ -37,8 +37,9 @@ const ThemeToggle = () => {
     },
     '& .MuiSwitch-thumb': {
       backgroundColor: theme.custom.toggleButton,
-      width: 32,
-      height: 32,
+      width: 25,
+      height: 25,
+      marginTop: "3px",
       transition: 'background-color 1s ease !important',
       '&:before': {
         content: "''",
