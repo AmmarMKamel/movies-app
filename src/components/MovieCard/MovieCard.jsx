@@ -68,27 +68,33 @@ export default function MovieCard(props) {
 					value={props.movie.vote_average * 10}
 				/>
 				<Typography
-					gutterBottom
-					variant="h6"
-					component="h6"
-					sx={{
+                    variant="h6"
+                    component="h6"
+                    sx={{ 
+						color: theme.palette.secondary,
+						fontSize: "1rem", 
+						fontWeight: "bold", 
+						mt: 2 }}
+                >
+                    {props.movie.original_title}
+                </Typography>
+				<Typography
+                    variant="body2"
+                    sx={{
 						color: theme.palette.text.primary,
-						fontSize: "0.874rem",
-						fontWeight: "bold",
-						mt: 2,
-						display: "flex",
-						justifyContent: "space-between",
-						alignItems: "center",
-					}}
-				>
-					{new Date(props.movie.release_date).toLocaleDateString(
-						"en-US",
-						{
-							month: "short",
-							day: "numeric",
-							year: "numeric",
-						}
-					)}
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
+                    {new Date(props.movie.release_date).toLocaleDateString(
+                        "en-US",
+                        {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                        }
+                    )}
                    <span
                         className="figure-hover"
                         onClick={() => props.handelFavorite(props.movie.id)}

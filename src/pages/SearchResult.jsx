@@ -20,7 +20,7 @@ import { fetchMovieDetailsByName } from "../api/services/searchService";
 
 const SearchResult = () => {
 	const theme = useTheme();
-  const dispatch = useDispatch();
+  	const dispatch = useDispatch();
 
 	const location = useLocation();
 	const [searchString, setSearchString] = useState(location.state?.query);
