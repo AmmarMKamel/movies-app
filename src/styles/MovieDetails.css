@@ -5,8 +5,7 @@
 }
 
 .genre {
-	background-color: var(--primary-color);
-	color: var(--text-color);
+	background-color: #da0037;
 	padding: 8px 25px;
 	border-radius: 25px;
 	margin-right: 10px;

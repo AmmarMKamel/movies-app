@@ -56,7 +56,7 @@ const ThemeToggle = () => {
     },
     '& .MuiSwitch-track': {
       opacity: 1,
-      backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+      backgroundColor: theme.palette.mode === 'dark' ? '#fafafa' : '#fafafa',
       borderRadius: 20 / 2,
       transition: 'background-color 1s ease !important',
     },

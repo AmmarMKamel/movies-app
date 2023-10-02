@@ -207,7 +207,7 @@ export default function MovieDetails() {
 											key={genre.id}
 											className="genre"
 											style={{
-												color: theme.palette.text.primary,
+												color: theme.palette.text.secondary,
 											}}
 										>
 											{genre.name}

@@ -8,68 +8,66 @@ import { getImageUrl } from "../../api/services/imageServices";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CardMedia from "@mui/material/CardMedia";
 import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Grid from "@mui/material/Grid";
 
 export default function WatchListCard(props) {
-	const language = useSelector((state) => state.languageSlice.currentLang);
+    const language = useSelector((state) => state.languageSlice.currentLang);
 
-	const theme = useTheme();
+    const theme = useTheme();
 
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	const handleMovieDetails = (movieId) => {
-		navigate(`/movies/${movieId}`);
-	};
+    const handleMovieDetails = (movieId) => {
+        navigate(`/movies/${movieId}`);
+    };
 
-	return (
-		<Card
-			sx={{
-				display: "flex",
-				maxWidth: 600,
+    return (
+        <Card
+            sx={{
+                display: "flex",
+                maxWidth: 600,
                 height: 290,
-				position: "relative",
-				borderRadius: "10px",
-				padding: "20px",
-				backgroundColor: theme.palette.background.default,
-				"@media (max-width:600px)": {
-					width: "auto",
+                position: "relative",
+                borderRadius: "10px",
+                padding: "20px",
+                backgroundColor: theme.palette.background.default,
+                "@media (max-width:600px)": {
+                    width: "auto",
                     height: "auto",
-					margin: "0 auto",
-				},
-			}}
-		>
-			<Grid
+                    margin: "0 auto",
+                },
+            }}
+        >
+            <Grid
                 container
                 spacing={2}
             >
                 <Grid item xs={12} sm={6} md={4} lg={4}
-                 className="figure-hover"
-                 onClick={() => handleMovieDetails(props.movie.id)}
+                    className="figure-hover"
+                    onClick={() => handleMovieDetails(props.movie.id)}
                 >
                     {props.movie.poster_path ? (
-					<img
-						src={getImageUrl(props.movie.poster_path)}
-						style={{ 
-                            width: "100%", 
-                            borderRadius: "10px",
-                            height: "100%" 
-                        }}
-						alt={props.movie.title}
-					/>
-				) : (
-					<img
-						src="https://placehold.co/800x1200"
-						style={{
-							width: "100%",
-							borderRadius: "10px",
-						}}
-						alt={props.movie.title}
-					/>
-				)}
+                        <img
+                            src={getImageUrl(props.movie.poster_path)}
+                            style={{
+                                width: "100%",
+                                borderRadius: "10px",
+                            }}
+                            alt={props.movie.title}
+                        />
+                    ) : (
+                        <img
+                            src="https://placehold.co/800x1200"
+                            style={{
+                                width: "100%",
+                                borderRadius: "10px",
+                            }}
+                            alt={props.movie.title}
+                        />
+                    )}
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={8}>
                     <Box
@@ -100,19 +98,19 @@ export default function WatchListCard(props) {
                             </Typography>
                         </Box>
                         <div
-                        className="figure-hover"
-                        onClick={() => props.handelFavorite(props.movie.id)}
+                            className="figure-hover"
+                            onClick={() => props.handelFavorite(props.movie.id)}
                         >
-                        {props.isFavorite(props.movie.id) ?
-                        <FavoriteIcon
-                            fontSize="large"
-                            sx={{ color: theme.palette.primary.main }}
-                        /> : 
-                        <FavoriteBorderOutlinedIcon
-                            fontSize="large"
-                            sx={{ color: theme.palette.primary.main }}
-                        />
-                        }
+                            {props.isFavorite(props.movie.id) ?
+                                <FavoriteIcon
+                                    fontSize="large"
+                                    sx={{ color: theme.palette.primary.main }}
+                                /> :
+                                <FavoriteBorderOutlinedIcon
+                                    fontSize="large"
+                                    sx={{ color: theme.palette.primary.main }}
+                                />
+                            }
                         </div>
                     </Box>
                     {props.movie.vote_average && (
@@ -131,18 +129,26 @@ export default function WatchListCard(props) {
                                 readOnly
                             />
                             <Typography
-                                sx={{ 
-                                    mb: 2, 
-                                    fontSize: "0.7rem" }}
+                                sx={{
+                                    mb: 2,
+                                    fontSize: "0.7rem"
+                                }}
                             >
                                 {props.movie.vote_count}
                             </Typography>
                         </Box>
                     )}
 
-                    <p style={{ marginBottom: "20px" }}>
+                    <Typography sx={{
+                        marginBottom: "20px", 
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "4",
+                        WebkitBoxOrient: "vertical",
+                    }}>
                         {props.movie.overview}
-                    </p>
+                    </Typography>
                 </Grid>
             </Grid>
 
