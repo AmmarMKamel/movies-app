@@ -22,7 +22,7 @@
 }
 
 .active .page-link {
-    background-color: var(--primary-color);
+    background-color: #da0037;
     color: white;
 }
 
@@ -44,7 +44,7 @@
 
 .previous-link:hover,
 .next-link:hover {
-    background-color: var(--primary-color);
+    background-color: #da0037;
     color: white;
 }
 
