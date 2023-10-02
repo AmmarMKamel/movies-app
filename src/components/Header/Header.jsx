@@ -11,17 +11,25 @@ import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import WatchListIcon from "@mui/icons-material/Favorite";
+import Badge from '@mui/material/Badge';
+import { useTheme } from '@mui/material/styles';
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputBase from "@mui/material/InputBase";
+import ThemeToggle from "../ThemeToggler/ThemeToggle";
+import translations from '../../utils/translations';
+
 
 const Header = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSlice.currentLang);
   const availableLanguages = useSelector(
     (state) => state.languageSlice.availableLang
   );
+
+  const count = useSelector((state) => state.watchlistSlice.count);
 
   const handleLanguageChange = (event) => {
     dispatch(setCurrentLang(event.target.value));
@@ -39,29 +47,33 @@ const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "var(--primary-color)", boxShadow: "none" }}
+      sx={{ backgroundColor: theme.palette.primary.main, boxShadow: "none" }}
     >
       <Toolbar>
         <Button
           edge="start"
           onClick={handleLogoClick}
           sx={{
-            color: "var(--header-text-color)",
+            color: theme.palette.text.secondary,
             fontSize: "1.2rem",
           }}
         >
           Watch X
         </Button>
-        <div style={{ marginLeft: "auto"}}>
+        <div style={{
+          marginLeft: language === "Ar"? "none":"auto",
+          marginRight: language === "Ar"? "auto":"none"
+          }}>
+          <ThemeToggle/>
           <Select
             value={language}
             onChange={handleLanguageChange}
-            sx={{ color: "var(--header-text-color)", fontSize: ".8rem" }}
+            sx={{ color: theme.palette.text.secondary, fontSize: ".8rem", marginLeft: "20px"}}
             IconComponent={KeyboardArrowDownIcon}
             input={<InputBase/>}
           >
             {availableLanguages.map((lang) => (
-              <MenuItem key={lang} value={lang}>
+              <MenuItem key={lang} value={lang} sx={{color: theme.palette.background.staticDark}}>
                 {lang}
               </MenuItem>
             ))}
@@ -71,12 +83,16 @@ const Header = () => {
             edge="end"
             onClick={handleWatchlistClick}
             sx={{
-              color: "var(--header-text-color)",
+              color: theme.palette.text.secondary,
               fontSize: ".8rem",
-              marginLeft: "10px",
+              marginLeft: language === "Ar"?"0":"10px",
+              marginLeft: language === "Ar"?"10px":"0",
             }}
           >
-            <WatchListIcon sx={{ marginRight: "8px" }} /> watchlist
+            {translations[language].headerWatchButton}
+            <Badge badgeContent={count}>
+            <WatchListIcon sx={{ marginLeft: "8px", marginRight: "8px" }} />
+            </Badge>
           </IconButton>
         </div>
       </Toolbar>

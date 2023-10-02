@@ -2,14 +2,16 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useTheme } from '@mui/material/styles';
 
 export default function CircularProgressWithLabel(props) {
+    const theme = useTheme();
     return (
         <Box
             sx={{
                 position: "absolute",
                 display: "inline-flex",
-                backgroundColor: "var(--secondary-color)",
+                backgroundColor: theme.palette.secondary.main,
                 borderRadius: "50%",
                 padding: "2px",
                 top: "-20px",
@@ -21,10 +23,10 @@ export default function CircularProgressWithLabel(props) {
                 sx={{
                     color:
                         props.value > 70
-                            ? "var(--high-rating)"
+                            ? theme.custom.highRating
                             : props.value > 40
-                            ? "var(--med-rating)"
-                            : "var(--low-rating)",
+                            ? theme.custom.medRating
+                            : theme.custom.lowRating,
 
                     opacity: 0.3,
                 }}
@@ -36,10 +38,10 @@ export default function CircularProgressWithLabel(props) {
                 sx={{
                     color:
                         props.value > 70
-                            ? "var(--high-rating)"
+                            ? theme.custom.highRating
                             : props.value > 40
-                            ? "var(--med-rating)"
-                            : "var(--low-rating)",
+                            ? theme.custom.medRating
+                            : theme.custom.lowRating,
                     position: "absolute",
                 }}
             />{" "}
@@ -59,7 +61,7 @@ export default function CircularProgressWithLabel(props) {
                 <Typography
                     variant="caption"
                     component="div"
-                    sx={{ color: "var(--bg-color)", fontWeight: "700" }}
+                    sx={{ color: theme.palette.background.default, fontWeight: "700" }}
                 >
                     {`${Math.round(props.value)}`}
                     <sup>%</sup>

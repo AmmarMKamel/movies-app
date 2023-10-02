@@ -5,8 +5,15 @@ import error404Img from '../../assets/error_404.png'
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useTheme } from '@mui/material/styles';
+import translations from '../../utils/translations';
+import { useSelector } from "react-redux";
+
 
 export default function Error404() {
+    const language = useSelector((state) => state.languageSlice.currentLang);
+
+    const theme = useTheme();
     const navigate = useNavigate();
 
     return (
@@ -20,6 +27,7 @@ export default function Error404() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                zIndex: -1
             }}
             container
             direction="column"
@@ -29,36 +37,38 @@ export default function Error404() {
                 style={{ width: "40%", marginBottom: '10px' }}
                 src={error404Img}
                 loading="lazy"
+                alt="Not Found"
             />
 
             <Typography
                 variant="h4"
-                color="var(--secondary-color)"
+                color={theme.palette.secondary.main}
             >
-                The page you are looking for is not avaible!
+                {translations[language].notFoundText1}
             </Typography>
 
             <Typography
-                color="var(--text-color)"
+                color={theme.palette.text.primary}
             >
-                Looks like you're lost , let's go back Home
+                {translations[language].notFoundText2}
             </Typography>
 
             <Button
                 variant="contained"
                 onClick={()=> navigate('/')}
                 sx={{
+                    fontWeight: "bold",
                     m : 3,
-                    backgroundColor: "var(--primary-color)",
+                    backgroundColor: theme.palette.primary.main,
                     borderRadius: "8px",
                     padding: "10px 40px",
                     boxShadow: "none",
                     "&:hover": {
-                        backgroundColor: "var(--primary-color)",
+                        backgroundColor: theme.palette.primary.main,
                     },
                 }}
             >
-                Home
+                {translations[language].HomeButton}
             </Button>
         </Grid>
     )

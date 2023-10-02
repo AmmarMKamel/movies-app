@@ -1,110 +1,156 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { useSelector } from "react-redux";
 
 import { getImageUrl } from "../../api/services/imageServices";
 
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Box from '@mui/material/Box';
-import CardMedia from '@mui/material/CardMedia';
-import Rating from '@mui/material/Rating';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import Grid from "@mui/material/Grid";
 
 export default function WatchListCard(props) {
+    const language = useSelector((state) => state.languageSlice.currentLang);
+
+    const theme = useTheme();
+
+    const navigate = useNavigate();
+
+    const handleMovieDetails = (movieId) => {
+        navigate(`/movies/${movieId}`);
+    };
+
     return (
         <Card
             sx={{
-                display: 'flex',
+                display: "flex",
                 maxWidth: 600,
+                height: 290,
                 position: "relative",
                 borderRadius: "10px",
-                padding: "10px",
-                backgroundColor: "var(--bg-color)",
+                padding: "20px",
+                backgroundColor: theme.palette.background.default,
                 "@media (max-width:600px)": {
                     width: "auto",
+                    height: "auto",
                     margin: "0 auto",
                 },
             }}
         >
-            <CardMedia
-                component="img"
-                style={{ width: "30%", borderRadius: "10px", marginRight: "10px" }}
-                image={getImageUrl(props.movie.poster_path)}
-            />
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <CardContent >
-                    <Typography
-                        variant="h3"
-                        component="div"
-                        color="var(--secondary-color)"
-                        sx={{
-                            fontWeight: "bold",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
-                    >
-                        {props.movie.original_title}
-                        <FavoriteIcon
-                            fontSize="large"
-                            sx={{ color: "var(--primary-color)" }}
+            <Grid
+                container
+                spacing={2}
+            >
+                <Grid item xs={12} sm={6} md={4} lg={4}
+                    className="figure-hover"
+                    onClick={() => handleMovieDetails(props.movie.id)}
+                >
+                    {props.movie.poster_path ? (
+                        <img
+                            src={getImageUrl(props.movie.poster_path)}
+                            style={{
+                                width: "100%",
+                                borderRadius: "10px",
+                            }}
+                            alt={props.movie.title}
                         />
-                    </Typography>
-
-                    <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        color="var(--text-color)"
-                        sx={{
-                            fontSize: "0.874rem",
+                    ) : (
+                        <img
+                            src="https://placehold.co/800x1200"
+                            style={{
+                                width: "100%",
+                                borderRadius: "10px",
+                            }}
+                            alt={props.movie.title}
+                        />
+                    )}
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={8}>
+                    <Box
+                        style={{
                             display: "flex",
                             justifyContent: "space-between",
-                            alignItems: "center",
                         }}
                     >
-                        {new Date(props.movie.release_date).toLocaleDateString(
-                            "en-US",
-                            {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
+                        <Box>
+                            <Typography
+                                variant="h4"
+                                component="h4"
+                                sx={{
+                                    fontWeight: "bold",
+                                    color: theme.palette.secondary.main
+                                }}
+                            >
+                                {props.movie.original_title}
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                {new Date(
+                                    props.movie.release_date
+                                ).toLocaleDateString("en-US", {
+                                    month: "short",
+                                    day: "numeric",
+                                    year: "numeric",
+                                })}
+                            </Typography>
+                        </Box>
+                        <div
+                            className="figure-hover"
+                            onClick={() => props.handelFavorite(props.movie.id)}
+                        >
+                            {props.isFavorite(props.movie.id) ?
+                                <FavoriteIcon
+                                    fontSize="large"
+                                    sx={{ color: theme.palette.primary.main }}
+                                /> :
+                                <FavoriteBorderOutlinedIcon
+                                    fontSize="large"
+                                    sx={{ color: theme.palette.primary.main }}
+                                />
                             }
-                        )}
-                    </Typography>
-                    
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                        }}
-                    >
-                    <Rating
-                        name="read-only"
-                        value={props.movie.vote_average / 2}
-                        readOnly
-                        style={{ color: 'var(--text-color)' }}
-                    />
-
-                    <Typography
-                        sx={{ fontSize: "0.7rem" }}
-                    >
-                        {props.movie.vote_count}
-                    </Typography>
+                        </div>
                     </Box>
+                    {props.movie.vote_average && (
+                        <Box sx={{
+                            display: "flex",
+                            justifyContent: "",
+                            alignItems: "center",
+                        }}>
+                            <Rating
+                                value={language == "Ar"? Math.floor(props.movie.vote_average / 2): props.movie.vote_average / 2}
+                                precision={0.5}
+                                sx={{
+                                    mb: 2,
+                                    color: theme.palette.text.primary
+                                }}
+                                readOnly
+                            />
+                            <Typography
+                                sx={{
+                                    mb: 2,
+                                    fontSize: "0.7rem"
+                                }}
+                            >
+                                {props.movie.vote_count}
+                            </Typography>
+                        </Box>
+                    )}
 
-                    <Typography
-                        // noWrap
-                        display="block"
-                        variant="subtitle2"
-                        component="div"
-                        color="var(--text-color)"
-                    >
+                    <Typography sx={{
+                        marginBottom: "20px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "4",
+                        WebkitBoxOrient: "vertical",
+                    }}>
                         {props.movie.overview}
                     </Typography>
-                </CardContent>
-
-            </Box>
+                </Grid>
+            </Grid>
 
         </Card>
     );
