@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,6 +9,7 @@ import noFavImg from '../../assets/noFavorite.png'
 
 export default function EmptyWatchList() {
     const navigate = useNavigate();
+	const theme = useTheme();
 
     return (
         <Grid
@@ -29,17 +31,18 @@ export default function EmptyWatchList() {
                 style={{ width: "40%" }}
                 src={noFavImg}
                 loading="lazy"
+                alt="Empty Watch List"
             />
 
             <Typography
                 variant="h4"
-                color="var(--secondary-color)"
+                color={theme.palette.secondary.main}
             >
                 No Movies in watch list
             </Typography>
 
             <Typography
-                color="var(--text-color)"
+                color={theme.palette.text.primary}
             >
                 Add the movies you are intersted in to appear here
             </Typography>
@@ -49,12 +52,12 @@ export default function EmptyWatchList() {
                 onClick={()=> navigate('/')}
                 sx={{
                     m : 3,
-                    backgroundColor: "var(--primary-color)",
+                    backgroundColor: theme.palette.primary.main,
                     borderRadius: "8px",
                     padding: "10px 40px",
                     boxShadow: "none",
                     "&:hover": {
-                        backgroundColor: "var(--primary-color)",
+                        backgroundColor: theme.palette.primary.main,
                     },
                 }}
             >

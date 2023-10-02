@@ -12,11 +12,16 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import WatchListIcon from "@mui/icons-material/Favorite";
 import Badge from '@mui/material/Badge';
+import { useTheme } from '@mui/material/styles';
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputBase from "@mui/material/InputBase";
+import ThemeToggle from "../ThemeToggler/ThemeToggle";
+
 
 const Header = () => {
+  const theme = useTheme();
+  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSlice.currentLang);
@@ -42,29 +47,30 @@ const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "var(--primary-color)", boxShadow: "none" }}
+      sx={{ backgroundColor: theme.palette.primary.main, boxShadow: "none" }}
     >
       <Toolbar>
         <Button
           edge="start"
           onClick={handleLogoClick}
           sx={{
-            color: "var(--header-text-color)",
+            color: theme.palette.text.secondary,
             fontSize: "1.2rem",
           }}
         >
           Watch X
         </Button>
         <div style={{ marginLeft: "auto"}}>
+          <ThemeToggle/>
           <Select
             value={language}
             onChange={handleLanguageChange}
-            sx={{ color: "var(--header-text-color)", fontSize: ".8rem" }}
+            sx={{ color: theme.palette.text.secondary, fontSize: ".8rem" }}
             IconComponent={KeyboardArrowDownIcon}
             input={<InputBase/>}
           >
             {availableLanguages.map((lang) => (
-              <MenuItem key={lang} value={lang}>
+              <MenuItem key={lang} value={lang} sx={{color: theme.palette.background.staticDark}}>
                 {lang}
               </MenuItem>
             ))}
@@ -74,7 +80,7 @@ const Header = () => {
             edge="end"
             onClick={handleWatchlistClick}
             sx={{
-              color: "var(--header-text-color)",
+              color: theme.palette.text.secondary,
               fontSize: ".8rem",
               marginLeft: "10px",
             }}

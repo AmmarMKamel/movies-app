@@ -1,38 +1,47 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { useSelector } from "react-redux";
+
 import { getImageUrl } from "../../api/services/imageServices";
 
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Box from "@mui/material/Box";
+import CardMedia from "@mui/material/CardMedia";
+import Rating from "@mui/material/Rating";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Grid from "@mui/material/Grid";
 
 export default function WatchListCard(props) {
-    const navigate = useNavigate();
+	const language = useSelector((state) => state.languageSlice.currentLang);
 
-    const handleMovieDetails = (movieId) => {
-        navigate(`/movies/${movieId}`);
-    };
+	const theme = useTheme();
 
-    return (
-        <Card
-            sx={{
-                display: 'flex',
-                position: "relative",
-                borderRadius: "10px",
-                padding: "20px",
-                backgroundColor: "var(--bg-color)",
-                "@media (max-width:600px)": {
-                    width: "auto",
+	const navigate = useNavigate();
+
+	const handleMovieDetails = (movieId) => {
+		navigate(`/movies/${movieId}`);
+	};
+
+	return (
+		<Card
+			sx={{
+				display: "flex",
+				maxWidth: 600,
+				position: "relative",
+				borderRadius: "10px",
+				padding: "20px",
+				backgroundColor: theme.palette.background.default,
+				"@media (max-width:600px)": {
+					width: "auto",
                     height: "auto",
-                    margin: "0 auto",
-                },
-            }}
-        >
-            <Grid
+					margin: "0 auto",
+				},
+			}}
+		>
+			<Grid
                 container
                 spacing={2}
             >
@@ -63,7 +72,7 @@ export default function WatchListCard(props) {
                                 component="h4"
                                 sx={{
                                     fontWeight: "bold",
-                                    color: "var(--text-color)",
+                                    color: theme.palette.secondary.main
                                 }}
                             >
                                 {props.movie.original_title}
@@ -85,11 +94,11 @@ export default function WatchListCard(props) {
                         {props.isFavorite(props.movie.id) ?
                         <FavoriteIcon
                             fontSize="large"
-                            sx={{ color: "var(--primary-color)" }}
+                            sx={{ color: theme.palette.primary.main }}
                         /> : 
                         <FavoriteBorderOutlinedIcon
                             fontSize="large"
-                            sx={{ color: "var(--primary-color)" }}
+                            sx={{ color: theme.palette.primary.main }}
                         />
                         }
                         </div>
@@ -105,7 +114,7 @@ export default function WatchListCard(props) {
                                 precision={0.5}
                                 sx={{
                                     mb: 2,
-                                    color: "var(--primary-color)",
+                                    color: theme.palette.text.primary
                                 }}
                                 readOnly
                             />
