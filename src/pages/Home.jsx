@@ -25,6 +25,7 @@ export default function Home() {
 
     const handlePageChange = (selectedPage) => {
         setCurrentPage(selectedPage + 1);
+		setLoading(true);
     };
 
     const isFavorite = (id) => {
@@ -44,7 +45,7 @@ export default function Home() {
     }
 
 	useEffect(() => {
-		setLoading(true);
+		// setLoading(true);
 		fetchMovies(currentPage)
 			.then((data) => {
 				setMovies(data.results);

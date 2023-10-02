@@ -39,7 +39,7 @@ export default function WatchList() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		setLoading(true);
+		// setLoading(true);
 		fetchWatchlist()
 			.then((data) => {
 				setMovies(data.results);

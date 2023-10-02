@@ -4,12 +4,10 @@ const endpoint = API_BASE_ACCOUNT_ENDPOINT;
 
 /**
  * Adds or Removes a movie to/from the user's watchlist.
- * Adds or Removes a movie to/from the user's watchlist.
  * @param {string} movieId - The ID of the movie to add.
  * @param {boolean} addToWatchList - boolean indicates weither adding(true) or removing(false) from the watch list
  * @returns {Promise<Object>} A promise that resolves to the updated watchlist or relevant response.
  */
-export const addOrRemoveFromWatchList = async (movieId, addToWatchList=true) => {
 export const addOrRemoveFromWatchList = async (movieId, addToWatchList=true) => {
   const url = endpoint + "/watchlist";
   try {
@@ -26,8 +24,6 @@ export const addOrRemoveFromWatchList = async (movieId, addToWatchList=true) => 
     return response.data;
   } catch (error) {
     console.error(`Error ${addToWatchList? "adding": "removing"} movie ${movieId} ${addToWatchList? "to": "from"} watchlist:`, error);
-    console.error(`Error ${addToWatchList? "adding": "removing"} movie ${movieId} ${addToWatchList? "to": "from"} watchlist:`, error);
-
     // Throw the error so that it can be handled by the calling component or function
     throw error;
   }

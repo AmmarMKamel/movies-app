@@ -93,7 +93,7 @@ export default function MovieCard(props) {
                         {props.isFavorite(props.movie.id) ?
                         <FavoriteIcon
                             fontSize="large"
-                            sx={{ color: "var(--primary-color)" }}
+                            sx={{ color: theme.palette.primary.main }}
                         /> : 
     					<FavoriteBorderOutlinedIcon
                             fontSize="large"

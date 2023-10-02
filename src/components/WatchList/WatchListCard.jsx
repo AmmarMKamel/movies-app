@@ -30,6 +30,7 @@ export default function WatchListCard(props) {
 			sx={{
 				display: "flex",
 				maxWidth: 600,
+                height: 290,
 				position: "relative",
 				borderRadius: "10px",
 				padding: "20px",
@@ -49,15 +50,26 @@ export default function WatchListCard(props) {
                  className="figure-hover"
                  onClick={() => handleMovieDetails(props.movie.id)}
                 >
-                    <img
-                        src={getImageUrl(props.movie.poster_path)}
-                        style={{
-                            width: "100%",
+                    {props.movie.poster_path ? (
+					<img
+						src={getImageUrl(props.movie.poster_path)}
+						style={{ 
+                            width: "100%", 
                             borderRadius: "10px",
-                            height: "100%",
+                            height: "100%" 
                         }}
-                        alt={props.movie.original_title}
-                    />
+						alt={props.movie.title}
+					/>
+				) : (
+					<img
+						src="https://placehold.co/800x1200"
+						style={{
+							width: "100%",
+							borderRadius: "10px",
+						}}
+						alt={props.movie.title}
+					/>
+				)}
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={8}>
                     <Box

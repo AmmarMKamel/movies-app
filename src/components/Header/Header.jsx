@@ -21,7 +21,6 @@ import ThemeToggle from "../ThemeToggler/ThemeToggle";
 
 const Header = () => {
   const theme = useTheme();
-  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSlice.currentLang);

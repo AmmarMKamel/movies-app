@@ -51,7 +51,7 @@ const SearchResult = () => {
 
 	const fetchData = (currentSearchString, currentPage=1) => {
 		setSearchString(currentSearchString??"")
-		setLoading(true);
+		// setLoading(true);
 		fetchMovieDetailsByName(currentSearchString, currentPage).then((data) => {
 			setmoviesList(data.results);
 			setTotalPages(data.total_pages);
@@ -60,16 +60,18 @@ const SearchResult = () => {
 	};
 
 	useEffect(() => {
-		fetchData(searchString);
-
-	}, [change]);
-
-	useEffect(() => {
 		fetchData(searchString, currentPage);
-	}, [currentPage]);
+
+		fetchWatchlist()
+		.then((data) => {
+		  setWatchlistMovies(data.results);
+		})
+		.catch((err) => console.log(err));
+	}, [currentPage, change]);
 
 	const handlePageChange = (selectedPage) => {
 		setCurrentPage(selectedPage + 1);
+		setLoading(true);
 	};
 
 	return (

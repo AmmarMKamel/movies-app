@@ -30,7 +30,7 @@ import Box from "@mui/material/Box";
 import "./../styles/MovieDetails.css";
 
 export default function MovieDetails() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const language = useSelector((state) => state.languageSlice.currentLang);
 
@@ -41,28 +41,28 @@ export default function MovieDetails() {
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const { id } = useParams();
 
-    const [watchlistMovies, setWatchlistMovies] = useState([]);
-    dispatch(watchlistCount(watchlistMovies.length));
-    const [change, setChange] = useState(0);
+  const [watchlistMovies, setWatchlistMovies] = useState([]);
+  dispatch(watchlistCount(watchlistMovies.length));
+  const [change, setChange] = useState(0);
 
-    const isFavorite = (id) => {
-        if (watchlistMovies.find((movie) => movie.id == id)) {
-            return true
-        }
+  const isFavorite = (id) => {
+    if (watchlistMovies.find((movie) => movie.id == id)) {
+      return true
     }
+  }
 
-    const handelFavorite = async (id) => {
-        if (isFavorite(id)) {
-            await addOrRemoveFromWatchList(id, false);
-        }
-        else {
-            await addOrRemoveFromWatchList(id);
-        }
-        setChange(change + 1);
+  const handelFavorite = async (id) => {
+    if (isFavorite(id)) {
+      await addOrRemoveFromWatchList(id, false);
     }
+    else {
+      await addOrRemoveFromWatchList(id);
+    }
+    setChange(change + 1);
+  }
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     fetchMovieDetails(id)
       .then((data) => {
         setMovie(data);
@@ -71,19 +71,19 @@ export default function MovieDetails() {
       })
       .catch((err) => console.log(err));
 
-        fetchMovieRecommendations(id)
-            .then((data) => {
-                setRecommendedMovies(data.results);
-                console.log(data);
-            })
-            .catch((err) => console.log(err));
+    fetchMovieRecommendations(id)
+      .then((data) => {
+        setRecommendedMovies(data.results);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
 
-        fetchWatchlist()
-            .then((data) => {
-                setWatchlistMovies(data.results);
-            })
-            .catch((err) => console.log(err));
-    }, [id, change]);
+    fetchWatchlist()
+      .then((data) => {
+        setWatchlistMovies(data.results);
+      })
+      .catch((err) => console.log(err));
+  }, [id, change]);
 
   return (
     <>
@@ -141,9 +141,9 @@ export default function MovieDetails() {
                   </Typography>
                   {movie.release_date && (
                     <Typography variant="subtitle1"
-                    sx={{
-                      color: theme.palette.text.primary,
-                    }}>
+                      sx={{
+                        color: theme.palette.text.primary,
+                      }}>
                       {new Date(movie.release_date).toLocaleDateString(
                         language,
                         {
@@ -155,21 +155,21 @@ export default function MovieDetails() {
                     </Typography>
                   )}
                 </div>
-                                <div
-                                    className="figure-hover"
-                                    onClick={() => handelFavorite(movie.id)}
-                                >
-                                    {isFavorite(movie.id) ?
-                                        <FavoriteIcon
-                                            fontSize="large"
-                                            sx={{ color: "var(--primary-color)" }}
-                                        /> :
-                        <FavoriteBorderOutlinedIcon
-                                            fontSize="large"
-                          sx={{ color: theme.palette.primary.main }}
-                        />
-                                    }
-                                </div>
+                <div
+                  className="figure-hover"
+                  onClick={() => handelFavorite(movie.id)}
+                >
+                  {isFavorite(movie.id) ?
+                    <FavoriteIcon
+                      fontSize="large"
+                      sx={{ color: theme.palette.primary.main }}
+                    /> :
+                    <FavoriteBorderOutlinedIcon
+                      fontSize="large"
+                      sx={{ color: theme.palette.primary.main }}
+                    />
+                  }
+                </div>
               </div>
               {movie.vote_average && (
                 <Rating
@@ -184,13 +184,13 @@ export default function MovieDetails() {
               )}
 
               {movie.overview && (
-                <p style={{ marginBottom: "30px", color: theme.palette.text.primary,}}>{movie.overview}</p>
+                <p style={{ marginBottom: "30px", color: theme.palette.text.primary, }}>{movie.overview}</p>
               )}
 
               <ul className="genre-list">
                 {movie.genres &&
                   movie.genres.map((genre) => (
-                    <li key={genre.id} className="genre" style={{color: theme.palette.text.primary}}>
+                    <li key={genre.id} className="genre" style={{ color: theme.palette.text.primary }}>
                       {genre.name}
                     </li>
                   ))}
@@ -206,18 +206,18 @@ export default function MovieDetails() {
                   <span>
                     <strong style={{ marginRight: "15px", color: theme.palette.text.primary }}>Languages:</strong>{" "}
                     {movie.spoken_languages.map((language, idx) => (
-                      <span key={idx} style={{color: theme.palette.text.primary}}>{language.english_name} </span>
+                      <span key={idx} style={{ color: theme.palette.text.primary }}>{language.english_name} </span>
                     ))}
                   </span>
                 )}
               </div>
               <div style={{ marginBottom: "20px" }}>
                 {movie.production_companies &&
-                movie.production_companies.length !== 0 &&
-                movie.production_companies[0].logo_path ? (
+                  movie.production_companies.length !== 0 &&
+                  movie.production_companies[0].logo_path ? (
                   <img
                     src={getImageUrl(movie.production_companies[0].logo_path)}
-                    style={{ width: "10%", backgroundColor: theme.palette.background.staticLight}}
+                    style={{ width: "10%", backgroundColor: theme.palette.background.staticLight }}
                     alt={movie.original_title}
                   />
                 ) : (
@@ -268,10 +268,10 @@ export default function MovieDetails() {
                 recommendedMovies.map((movie) => (
                   <Grid item={true} xs={12} sm={6} md={4} lg={2} key={movie.id}>
                     <MovieCard
-                                        movie={movie}
-                                        isFavorite={(id) => isFavorite(id)}
-                                        handelFavorite={(id) => handelFavorite(id)}
-                                        />
+                      movie={movie}
+                      isFavorite={(id) => isFavorite(id)}
+                      handelFavorite={(id) => handelFavorite(id)}
+                    />
                   </Grid>
                 ))}
             </Grid>
