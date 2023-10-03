@@ -26,7 +26,7 @@ const SearchBar = ({ searchPage, fetchData, initialSearchTerm }) => {
 
   useEffect(() =>{
     setSearchTerm(initialSearchTerm);
-  }, [])
+  }, [initialSearchTerm])
 
   useEffect(() =>{
 
