@@ -46,7 +46,6 @@ export default function WatchList() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		// setLoading(true);
 		fetchWatchlist()
 			.then((data) => {
 				setMovies(data.results);
@@ -54,7 +53,6 @@ export default function WatchList() {
 			})
 			.catch((err) => console.log(err));
 	}, [change]);
-	console.log(movies);
 
 	return (
 		<>

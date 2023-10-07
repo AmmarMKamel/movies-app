@@ -24,7 +24,7 @@ export default function MoviesContainer(props) {
 							item="true"
 							xs={12}
 							sm={6}
-							md={4}
+							md={3}
 							lg={2}
 							key={movie.id}
 						>

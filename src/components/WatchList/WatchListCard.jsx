@@ -124,7 +124,7 @@ export default function WatchListCard(props) {
                                 precision={0.5}
                                 sx={{
                                     mb: 2,
-                                    color: theme.palette.text.primary
+                                    color: theme.palette.primary.main
                                 }}
                                 readOnly
                             />

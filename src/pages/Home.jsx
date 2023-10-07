@@ -49,7 +49,6 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		// setLoading(true);
 		fetchMovies(currentPage)
 			.then((data) => {
 				setMovies(data.results);

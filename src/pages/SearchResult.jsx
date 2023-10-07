@@ -11,13 +11,11 @@ import {
 import { useTheme } from "@mui/material/styles";
 
 import { Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import MovieCard from "../components/MovieCard/MovieCard";
-import Pagination from "../components/Pagination/Pagination";
 
 import SearchBar from "../components/Search/SearchBar";
+import MoviesContainer from "../components/MoviesContainer/MoviesContainer";
 import { fetchMovieDetailsByName } from "../api/services/searchService";
 import translations from "../utils/translations";
 import { useSelector } from "react-redux";
@@ -33,6 +31,7 @@ const SearchResult = () => {
   const [moviesList, setmoviesList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1000);
+  const [loading, setLoading] = useState(true);
 
   const [watchlistMovies, setWatchlistMovies] = useState([]);
   dispatch(watchlistCount(watchlistMovies.length));
@@ -52,11 +51,9 @@ const SearchResult = () => {
     }
     setChange(change + 1);
   };
-  const [loading, setLoading] = useState(true);
 
   const fetchData = (currentSearchString, currentPage = 1) => {
     setSearchString(currentSearchString ?? "");
-    // setLoading(true);
     fetchMovieDetailsByName(currentSearchString, currentPage)
       .then((data) => {
         setmoviesList(data.results);
@@ -115,33 +112,16 @@ const SearchResult = () => {
               {translations[language].searchPageEmpty}
             </Typography>
           ) : (
-		  <>
-            <Grid
-              container
-              spacing={2}
-              sx={{ height: moviesList?.length === 0 ? "70vh" : "auto" }}
-            >
-              {moviesList &&
-                moviesList.map((movie) => (
-                  <Grid item="true" xs={12} sm={6} md={4} lg={2} key={movie.id}>
-                    <MovieCard
-                      movie={movie}
-                      isFavorite={(id) => isFavorite(id)}
-                      handelFavorite={(id) => handelFavorite(id)}
-                    />
-                  </Grid>
-                ))}
-            </Grid>
-
-          <Pagination
-            pageCount={totalPages}
-            onPageChange={handlePageChange}
+            <MoviesContainer
+            heading={translations[language].homeHeader}
+            content={moviesList}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+            isFavorite={(id) => isFavorite(id)}
+            handelFavorite={(id) => handelFavorite(id)}
             currentPage={currentPage}
           />
-		  </>
 		  )
-
-
       )}
     </Container>
   );
